@@ -1,63 +1,48 @@
-# Simple Bank System (C++)
+# 🏦 Simple Bank System (C++)
 
-This is a **console-based bank system** implemented in C++ for **learning purposes**.  
-It focuses on practicing **object-oriented programming (OOP)** concepts such as classes, encapsulation, and basic file handling.
+A comprehensive Banking Management System developed as part of the **Programming Advices** roadmap (Course 11). This project focuses on mastering Object-Oriented Programming (OOP) in C++ by building a real-world application.
 
----
-
-## Features
-
-- Create a new bank client
-- Update client information (balance, pin)
-- Find clients by account number and/or pin
-- Store client data in a file (`Clients.txt`)
-- Simple, clean console output
-- Defensive programming: ignores empty or corrupted lines in the data file
+## 📌 Project Overview
+The goal of this project is to manage bank clients and users through a console interface, using **File Handling** for data persistence and **Inheritance** to structure the domain logic.
 
 ---
 
-## Learning Goals
+## 🛠 Features
 
-This project is designed to help understand:
+### ✅ Currently Implemented
+* **Client List:** View all clients in a formatted table. 📋
+* **Add New Client:** Form-based entry for adding new records. ➕
+* **Update Client:** Modify existing client details using their Account Number. ✏️
+* **Find Client:** Search for specific clients quickly. 🔍
+* **Object-Oriented Design:** * `clsPerson`: Base class for personal data.
+    * `clsBankClient`: Derived class for banking-specific logic.
 
-- Classes and inheritance
-- Constructors and member functions
-- Access modifiers (`private`, `public`)
-- Reference vs value parameters
-- File I/O with `ifstream` and `ofstream`
-- Encapsulation of data and behavior
-
----
-
-## How to Use
-
-1. Clone the repository
-2. Open the solution in **Visual Studio**
-3. Build and run the console application
-4. Interact with the menu to add/update/find clients
-
----
-
-## Project Structure
-
-- `clsPerson.h` – Base class for personal information  
-- `clsBankClient.h` – Main class for bank clients, inherits from `clsPerson`  
-- `clsString.h` – Helper class for string operations  
-- `Clients.txt` – Stores client data (generated automatically)  
+### ⏳ Coming Soon (Roadmap)
+* **Delete Client:** Securely remove records from the system. 🗑️
+* **Transactions Menu:**
+    * Deposit & Withdraw logic. 💰
+    * Total Balances view.
+* **User Management:** Login system with different permissions/access levels. 🔑
+* **Login Register:** Logging every login attempt to a file. 📝
+* **Currency Exchange:** A specialized system for handling multiple currencies. 🌍
 
 ---
 
-## Notes
-
-- This project is **not a real banking system**. It is purely for learning C++ and OOP.  
-- The system does **not implement security measures** (e.g., hashing PINs).  
-- Currently, negative balances are allowed; this can be improved in future versions.
+## 💻 Technical Skills Applied
+* **File Streams (`fstream`):** Reading and writing data to `.txt` files. 📂
+* **String Manipulation:** Using a custom `clsString` library for splitting and joining data. ✂️
+* **Encapsulation:** Using private members and public `properties` for data safety. 🛡️
+* **Static Members:** Efficiently managing shared file paths and delimiters.
 
 ---
 
-## Future Improvements
+## 📂 Project Structure
+* `clsPerson.h`: The base class containing shared personal attributes.
+* `clsBankClient.h`: The main logic for bank clients and file interactions.
+* `clsString.h`: Helper library for advanced string operations.
+* `Clients.txt`: The text-based database for the system.
 
-- Deposit and withdraw methods with balance checks
-- Transaction history logging
-- PIN validation and encryption
-- Console menu interface for better user interaction
+---
+
+### 🎓 Note for Reviewers
+I am currently working through the **Programming Advices** curriculum. As I learn new concepts like **Composition** and **Operator Overloading**, I will be updating this repository to reflect more advanced system features.
