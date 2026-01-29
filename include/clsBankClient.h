@@ -17,6 +17,7 @@ private:
     string _AccountNumber;
     string _Pincode;
     double _Balance;
+    bool _MarkForDelete = false;
 
     inline static const string _ClientsFileName = "data/Clients.txt";
     inline static const string _Delimiter = "#//#";
@@ -125,6 +126,9 @@ private:
         {
             for (const clsBankClient & cl : clients) {
 
+                if (cl._MarkForDelete)  
+                    continue;
+
                 dataFile << _ConvertBankClientObjectToLine(cl) << endl;
             }
             dataFile.close();
@@ -161,10 +165,13 @@ private:
 
         void SetPincode(string Pincode) { _Pincode = Pincode; }
         void SetBalance(double Balance) { _Balance = Balance; }
+        void MarkForDelete() { _MarkForDelete = true; }
+        void UnMarkForDelete() { _MarkForDelete = false; }
 
         string GetAccountNumber() const { return _AccountNumber; }
         string GetPincode() const { return _Pincode; }
         double GetBalance() const { return _Balance; }
+
 
         __declspec(property(get = GetAccountNumber)) string AccountNumber;
         __declspec(property(get = GetPincode, put = SetPincode)) string Pincode;
@@ -249,5 +256,21 @@ private:
             return clsBankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
         }
 
+        bool Delete()
+        {
+            vector <clsBankClient> allClients = _LoadClientsFileToVecObjects();
+            for (clsBankClient& client : allClients) {
+                if (client.AccountNumber == this->AccountNumber)
+                {
+                    client.MarkForDelete();
+                    _SaveVecClientsToFile(allClients, false);   // deleted from the data file
+                    *this = _GetEmptyClientObj();               // deleted from the memory
+                    return true;
 
+                }
+            }
+
+            return false;
+            
+        }
 };
