@@ -273,4 +273,9 @@ private:
             return false;
             
         }
+
+        static vector<clsBankClient> GetClientsList()
+        {
+            return _LoadClientsFileToVecObjects();
+        }
 };

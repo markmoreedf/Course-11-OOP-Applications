@@ -95,8 +95,55 @@ static void DeleteClient()
         cout << "Failed to delete client.\n";
     
 }
+
+
+static void PrintTableCell(const string& word, const short & width)
+{
+    cout << "|";
+    short padLeft = (width - word.length()) / 2;
+    short padRight = width - word.length() - padLeft;
+    cout << setw(padLeft)<< "" << word << setw(padRight) << "";
+
+}
+static void PrintTableRow(const vector<string> & rowData, const vector<int>& widths)
+{
+    PrintTableCell(rowData[0], widths[0]);
+    PrintTableCell(rowData[1], widths[1]);
+    PrintTableCell(rowData[2], widths[2]);
+    PrintTableCell(rowData[3], widths[3]);
+    PrintTableCell(rowData[4], widths[4]);
+    PrintTableCell(rowData[5], widths[5]);
+    cout << "|" << endl;
+}
+static void PrintClientsList()
+{
+    vector <clsBankClient> clients = clsBankClient::GetClientsList();
+
+    if (clients.size() == 0)
+    {
+        cout << "\n\n\t\t\t\tNo Clients Available In the System!\n\n";
+    }
+    else
+    {
+        vector<string> rowData = { "Account No.", "Full Name", "Phone Number", "E-mail", "Pin Code", "Balance" };
+        const vector<int> widths = { 20, 30, 18, 30, 15, 25 };
+        cout << "\t\t\t\t\t" << "[" << clients.size() << "]" << " Users were found.\n";
+        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------\n";
+        PrintTableRow(rowData, widths);
+        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------\n";
+        for (clsBankClient & cl : clients) {
+            rowData = { cl.AccountNumber, cl.FullName(),  cl.Phone, cl.Email, cl.Pincode, to_string(cl.Balance) };
+            PrintTableRow(rowData, widths);
+        }
+        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------\n";
+    }
+
+}
+
+
+
 int main()
 {
-    DeleteClient();
+    PrintClientsList();
     return 0;
 }
