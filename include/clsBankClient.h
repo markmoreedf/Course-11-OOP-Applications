@@ -18,7 +18,7 @@ private:
     string _Pincode;
     double _Balance;
 
-    inline static const string _ClientsFileName = "Clients.txt";
+    inline static const string _ClientsFileName = "data/Clients.txt";
     inline static const string _Delimiter = "#//#";
 
     static vector<string>  _LoadFileDataToVecString(const string& dataFileName)

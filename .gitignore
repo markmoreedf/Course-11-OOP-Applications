@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# --- My Custom Additions ---
+# Ignore VS project organization files
+*.vcxproj.filters
+*.vcxproj.user
+
+# Ignore temporary ghost files (like that '0' file)
+0

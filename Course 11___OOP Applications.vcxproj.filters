@@ -15,28 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Course 11___OOP Applications.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="include\clsBankClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsDate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsPerson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MyInputLibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clsUtility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyInputLibrary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="clsDate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="clsString.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="clsPerson.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="clsBankClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="src\Course 11___OOP Applications.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

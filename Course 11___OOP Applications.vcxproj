@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>K:\CPPLearning VS2022\Programming Advices Projects\Course 11___OOP Applications\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,15 +129,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Course 11___OOP Applications.cpp" />
+    <ClInclude Include="include\clsBankClient.h" />
+    <ClInclude Include="include\clsDate.h" />
+    <ClInclude Include="include\clsPerson.h" />
+    <ClInclude Include="include\clsString.h" />
+    <ClInclude Include="include\clsUtility.h" />
+    <ClInclude Include="include\MyInputLibrary.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="clsBankClient.h" />
-    <ClInclude Include="clsDate.h" />
-    <ClInclude Include="clsPerson.h" />
-    <ClInclude Include="clsString.h" />
-    <ClInclude Include="clsUtility.h" />
-    <ClInclude Include="MyInputLibrary.h" />
+    <ClCompile Include="src\Course 11___OOP Applications.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
