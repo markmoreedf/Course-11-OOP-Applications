@@ -1,7 +1,7 @@
 ﻿#include <iostream>
-#include "clsUtility.h";
-#include "clsBankClient.h";
-#include "MyInputLibrary.h";
+#include "clsUtility.h"
+#include "clsBankClient.h"
+#include "MyInputLibrary.h"
 
 using namespace std;
 
@@ -161,8 +161,10 @@ static void GetTotalBalances()
             PrintTableRow(rowData, widths);
         }
         cout << "-------------------------------------------------------------------------------\n";
-        PrintTableRow({ "Total Balances", "", to_string(clsBankClient::GetTotalBalances()) }, { 20, 30, 25 });
+        double totaleBalances = clsBankClient::GetTotalBalances();
+        PrintTableRow({ "Total Balances", "", to_string(totaleBalances) }, { 20, 30, 25 });
         cout << "-------------------------------------------------------------------------------\n";
+        cout << endl << "\t\t" << clsUtility::NumberToText(static_cast<long long>(totaleBalances))<< " $ \n\n";
 
     }
 

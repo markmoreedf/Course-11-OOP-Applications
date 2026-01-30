@@ -5,8 +5,8 @@
 #include <random>
 #include <limits> // Required to find the min/max of the each datatype
 #include <vector>
-#include "clsString.h";
-#include "clsDate.h";
+#include "clsString.h"
+#include "clsDate.h"
 
 using namespace std;
 

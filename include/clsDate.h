@@ -3,8 +3,8 @@
 #include <vector>
 #include <iomanip>
 #include <string>
-#include "clsString.h";
 #include <ctime> 
+#include "clsString.h"
 using namespace std;
 
 
