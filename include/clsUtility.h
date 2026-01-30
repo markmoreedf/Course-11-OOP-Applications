@@ -225,9 +225,6 @@ public:
     }
 
 
-
-
-
     static int RandomNumber(int min, int max)
     {
         std::uniform_int_distribution<int> dis(min, max);

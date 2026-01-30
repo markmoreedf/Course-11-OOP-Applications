@@ -8,7 +8,7 @@
 
 class clsBankClient : public clsPerson
 {
-    // an info you will thank me later for it
+    // clients data written in the file as follows: 
     // firstName _Delimiter lastname _Delimiter email _Delimiter phone _Delimiter accountnumber _Delimiter pincode _Delimiter balance
 
 private:
@@ -19,6 +19,9 @@ private:
     double _Balance;
     bool _MarkForDelete = false;
 
+    // should be c++ 17 or later to support inline static members
+    // otherwise define them in the cpp file
+    
     inline static const string _ClientsFileName = "data/Clients.txt";
     inline static const string _Delimiter = "#//#";
 
