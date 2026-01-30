@@ -107,14 +107,14 @@ static void PrintTableCell(const string& word, const short & width)
 }
 static void PrintTableRow(const vector<string> & rowData, const vector<int>& widths)
 {
-    PrintTableCell(rowData[0], widths[0]);
-    PrintTableCell(rowData[1], widths[1]);
-    PrintTableCell(rowData[2], widths[2]);
-    PrintTableCell(rowData[3], widths[3]);
-    PrintTableCell(rowData[4], widths[4]);
-    PrintTableCell(rowData[5], widths[5]);
+    for(short i = 0; i < rowData.size(); i++)
+    {
+        PrintTableCell(rowData[i], widths[i]);
+    }
+
     cout << "|" << endl;
 }
+
 static void PrintClientsList()
 {
     vector <clsBankClient> clients = clsBankClient::GetClientsList();
@@ -140,10 +140,36 @@ static void PrintClientsList()
 
 }
 
+static void GetTotalBalances()
+{
+    vector <clsBankClient> clients = clsBankClient::GetClientsList();
 
+    if (clients.size() == 0)
+    {
+        cout << "\n\n\t\t\t\tNo Clients Available In the System!\n\n";
+    }
+    else
+    {
+        vector<string> rowData = { "Account No.", "Full Name", "Balance" };
+        const vector<int> widths = { 20, 30, 25 };
+        cout << "\t\t\t\t\t" << "[" << clients.size() << "]" << " Users were found.\n";
+        cout << "-------------------------------------------------------------------------------\n";
+        PrintTableRow(rowData, widths);
+        cout << "-------------------------------------------------------------------------------\n";
+        for (clsBankClient& cl : clients) {
+            rowData = { cl.AccountNumber, cl.FullName(), to_string(cl.Balance) };
+            PrintTableRow(rowData, widths);
+        }
+        cout << "-------------------------------------------------------------------------------\n";
+        PrintTableRow({ "Total Balances", "", to_string(clsBankClient::GetTotalBalances()) }, { 20, 30, 25 });
+        cout << "-------------------------------------------------------------------------------\n";
+
+    }
+
+}
 
 int main()
 {
-    PrintClientsList();
+    GetTotalBalances();
     return 0;
 }

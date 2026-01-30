@@ -278,4 +278,15 @@ private:
         {
             return _LoadClientsFileToVecObjects();
         }
+
+        static float GetTotalBalances()
+        {
+            vector<clsBankClient> clients = _LoadClientsFileToVecObjects();
+            float totalBalances = 0;
+            for (const clsBankClient& cl : clients) {
+                totalBalances += cl.Balance;
+            }
+            return totalBalances;
+        }
+
 };
