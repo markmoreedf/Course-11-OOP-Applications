@@ -57,6 +57,56 @@ public:
         return  SumOfTheDevisors == n;
     }
 
+
+    static string NumberToText(long long num)
+    {
+        //if zero return empty string. why?
+        //because we can't return the word "Zero" since it could be 30 for example 
+        //that will enter if (num < 100) condition and will return "thirty" at the first time
+        //then recursivly call itself  passing 0 as a parameter --> return arr[num / 10] + " " + NumberToText(num % 10);
+        // that will return at the end "thirty zero" instead we want it to return "thirty" only. 
+        // you gotta check if the number = zero before passing it in the first time.
+
+        if (num == 0)
+            return "";
+
+        //if less than twnety 20
+        if (num < 20)
+        {
+            string arr[] = { "" , "one","two", "three","four","five", "six","seven", "eight","nine","ten", "eleven",
+                             "twelve", "thirteen","fourteen","fifteen", "sixteen","seventeen", "eighteen","ninteen" };
+            return arr[num];
+        }
+
+        //if less than one hundred 100
+        if (num < 100)
+        {
+            string arr[] = { "", "", "twenty", "thirty", "fourty", "fity", "sixty", "seventy", "eighty", "ninty" };
+            return arr[num / 10] + " " + NumberToText(num % 10);
+        }
+
+        //if less than thousand 1,000
+        if (num < 1000)
+        {
+            string arr[] = { "" , "one hundred" , "two hundreds" , "three hundreds" , "four hundreds" , "five hundreds",
+                             "six hundreds", "seven hudnreds", "eight hundreds", "nine hundreds" };
+            return arr[num / 100] + " " + NumberToText(num % 100);
+        }
+
+        // if less than million 1,000,000
+        if (num < 1000000)
+            return NumberToText(num / 1000) + " thousands " + NumberToText(num % 1000);
+
+        // if less than billion 1,000,000,000
+        if (num < 1000000000)
+            return NumberToText(num / 1000000) + " million " + NumberToText(num % 1000000);
+
+        // if less than trillion 1,000,000,000,000
+        if (num < 1000000000000)
+            return NumberToText(num / 1000000000) + " billion " + NumberToText(num % 1000000000);
+
+        return "Number exceeds the limit or it is negative\n";
+    }
     static int MyAbs(int number)
     {
         return number >= 0 ? number : -number;
