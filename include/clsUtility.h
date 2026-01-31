@@ -7,6 +7,7 @@
 #include <vector>
 #include "clsString.h"
 #include "clsDate.h"
+#include "clsTable.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ private:
         static std::mt19937 gen(static_cast<unsigned int>(std::time(0)));
         return gen;
     }
+
 
 public:
 
@@ -490,5 +492,20 @@ public:
     }
 
 
+    static void PrintDeviderLine(const short& width, const short & shiftRight = 0, const char & character = '-')
+    {
+        clsTable::PrintDividerLine(width, shiftRight, character);
+    }
+    static void PrintTableFooter(const vector<string>& footerData, const vector<short>& widths, const short& tableWidth, const short& shiftRight = 0)
+    {
+
+        clsTable::PrintTableRow(footerData, widths, shiftRight);
+        clsTable::PrintDividerLine(tableWidth, shiftRight);
+    }
+
+    static void PrintTable(const vector<string>& coloumsNames, const vector<short>& widths, const vector<vector<string>>& data, const string& emptyDataMsg = "\n\n\t\t\t\tNo data Available!\n\n", const short& shiftRight = 0)
+    {
+        clsTable::PrintTable(coloumsNames, widths, data, shiftRight, '-', emptyDataMsg);
+    }
 };
 
