@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\clsAddNewClientScreen.h" />
     <ClInclude Include="include\clsBankClient.h" />
     <ClInclude Include="include\clsClientListScreen.h" />
     <ClInclude Include="include\clsDate.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="include\clsString.h" />
     <ClInclude Include="include\clsTable.h" />
     <ClInclude Include="include\clsTotalBalancesScreen.h" />
+    <ClInclude Include="include\clsUpdateClientScreen.h" />
     <ClInclude Include="include\clsUtility.h" />
     <ClInclude Include="include\MyInputLibrary.h" />
   </ItemGroup>

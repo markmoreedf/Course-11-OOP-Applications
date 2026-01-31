@@ -6,6 +6,8 @@
 #include "MyInputLibrary.h"
 #include "clsClientListScreen.h"
 #include "clsTotalBalancesScreen.h"
+#include "clsAddNewClientScreen.h"
+#include "clsUpdateClientScreen.h"
 class clsMainScreen : protected clsScreen
 {
 private:
@@ -39,21 +41,19 @@ private:
     {
         clsTotalBalancesScreen::ShowTotalBalancesScreen();
     }
+    static void _AddNewClient()
+    {
+        clsAddNewClientScreen::AddNewClientScreen();
+    }
+    static void _UpdateClientData()
+    {
+        clsUpdateClientScreen::UpdateClientScreen();
+    }
 
     static void _FindAndShowClient()
     {
         system("cls");
         clsScreen::Print("Here will be find client screen\n");
-    }
-    static void _AddNewClient()
-    {
-        system("cls");
-        clsScreen::Print("Here will be add new client screen\n");
-    }
-    static void _UpdateClientData()
-    {
-        system("cls");
-        clsScreen::Print("here will be update client screen\n");
     }
     static void _DeleteClient()
     {

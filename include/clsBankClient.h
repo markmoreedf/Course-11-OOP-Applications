@@ -182,19 +182,6 @@ private:
 
         bool IsEmpty() const { return _Mode == enMode::EmptyMode; }
 
-        void Print() const
-        {
-            cout << "=============================\n";
-            cout << "First Name   : " << FirstName << endl;
-            cout << "Last Name    : " << LastName << endl;
-            cout << "Email        : " << Email << endl;
-            cout << "Phone        : " << Phone << endl;
-            cout << "Account No.  : " << AccountNumber << endl;
-            cout << "Pincode      : " << Pincode << endl;
-            cout << "Balance      : " << Balance << endl;
-            cout << "=============================\n";
-        }
-
         static clsBankClient FindClient(const string & AccountNumber)
         {
             vector<clsBankClient> clients = _LoadClientsFileToVecObjects();
