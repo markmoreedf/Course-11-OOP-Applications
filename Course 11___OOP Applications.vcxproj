@@ -131,7 +131,9 @@
   <ItemGroup>
     <ClInclude Include="include\clsBankClient.h" />
     <ClInclude Include="include\clsDate.h" />
+    <ClInclude Include="include\clsMainMenue.h" />
     <ClInclude Include="include\clsPerson.h" />
+    <ClInclude Include="include\clsScreen.h" />
     <ClInclude Include="include\clsString.h" />
     <ClInclude Include="include\clsUtility.h" />
     <ClInclude Include="include\MyInputLibrary.h" />

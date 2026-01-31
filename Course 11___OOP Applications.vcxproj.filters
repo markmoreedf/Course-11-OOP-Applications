@@ -33,6 +33,12 @@
     <ClInclude Include="include\MyInputLibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\clsScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsMainMenue.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Course 11___OOP Applications.cpp">

@@ -2,6 +2,7 @@
 #include "clsUtility.h"
 #include "clsBankClient.h"
 #include "MyInputLibrary.h"
+#include "clsMainMenue.h"
 
 using namespace std;
 
@@ -172,6 +173,6 @@ static void GetTotalBalances()
 
 int main()
 {
-    GetTotalBalances();
+    clsMainMenue::ShowMainMenue();
     return 0;
 }
