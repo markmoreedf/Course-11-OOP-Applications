@@ -9,11 +9,15 @@ protected:
     {
         std::cout << spaces << message;
     }
-    static void _PrintHeader(const std::string& title)
+    static void _PrintHeader(const std::string & title)
     {
-        std::cout << spaces << "=====================================\n";
-        std::cout << spaces << "\t" << title << "\n";
-        std::cout << spaces << "=====================================\n\n";
+        std::cout << "\n\n";
+        std::cout << spaces;    clsUtility::PrintDeviderLine(title.length() + 12);
+        std::cout << spaces     << "| === " + title + " === |\n";
+        std::cout << spaces;    clsUtility::PrintDeviderLine(title.length() + 12);
+        std::cout << "\n\n";
+
+
     }
     static void _PauseScreen()
     {

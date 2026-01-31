@@ -4,11 +4,12 @@
 #include "clsBankClient.h"
 #include "clsScreen.h"
 #include "MyInputLibrary.h"
-
-class clsMainMenue : protected clsScreen
+#include "clsClientListScreen.h"
+#include "clsTotalBalancesScreen.h"
+class clsMainScreen : protected clsScreen
 {
 private:
-    enum enMainMenueOptions
+    enum enMainMenueOption
     {
         eShowClientsList = 1,
         eGetTotalBalances = 2,
@@ -21,16 +22,24 @@ private:
         eLogout = 9
     };
 
+    static enMainMenueOption _ReadMainMenueOption()
+    {
+        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 9, clsScreen::spaces + "Choose what do you want to do? [1-9]: ");
+    }
+    static void _ReturnToMainMenue()
+    {
+        clsScreen::_PauseScreen();
+    }
+     
     static void _PrintClientsList()
     {
-        system("cls");
-        clsScreen::Print("Here will be the clients list\n");
+        clsClientListScreen::ShowClientsListScreen();
     }
     static void _PrintTotalBalances()
     {
-        system("cls");
-        clsScreen::Print("Here will be balances list\n");
+        clsTotalBalancesScreen::ShowTotalBalancesScreen();
     }
+
     static void _FindAndShowClient()
     {
         system("cls");
@@ -61,8 +70,13 @@ private:
         system("cls");
         clsScreen::Print("Here will be show users screen\n");
     }
+    static void _LoginScreen()
+    {
+        system("cls");
+        clsScreen::Print("Here will be login screen\n");
+    }
 
-    static void _PerformMainMenueChoice(enMainMenueOptions choice)
+    static void _PerformMainMenueChoice(enMainMenueOption choice)
     {
         switch (choice)
         {
@@ -83,21 +97,25 @@ private:
             break;
         case eDeleteClient:
             _DeleteClient();
+            _ReturnToMainMenue();
             break;
         case eTransactionsMenue:
             _ShowTransactionsMenue();
             break;
         case eManageUsersMenue:
-            _ShowUsersMenue();
+            _ShowUsersMenue();           
             break;
         case eLogout:
+            _LoginScreen();
+
             return;
         default:
-            std::cout << spaces << "Invalid choice. Please try again.\n";
+            std::cout << clsScreen::spaces << "Invalid choice. Please try again.\n";
             break;
         }
-        clsScreen::_PauseScreen();
-        ShowMainMenue();
+        
+        _ReturnToMainMenue();
+
     }
 
 
@@ -117,8 +135,7 @@ public:
         std::cout << clsScreen::spaces << "[9] Logout.\n\n";
         std::cout << clsScreen::spaces << "=============================================\n\n";
         
-        enMainMenueOptions choice = (enMainMenueOptions)MyInputLibrary::ReadNumberBetween(1, 9, spaces + "Choose what do you want to do? [1-9]: ");
-
+        enMainMenueOption choice =  _ReadMainMenueOption();
         _PerformMainMenueChoice(choice);
     }
 };

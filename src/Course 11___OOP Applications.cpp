@@ -2,7 +2,7 @@
 #include "clsUtility.h"
 #include "clsBankClient.h"
 #include "MyInputLibrary.h"
-#include "clsMainMenue.h"
+#include "clsMainScreen.h"
 
 using namespace std;
 
@@ -98,81 +98,9 @@ static void DeleteClient()
 }
 
 
-static void PrintTableCell(const string& word, const short & width)
-{
-    cout << "|";
-    short padLeft = (width - word.length()) / 2;
-    short padRight = width - word.length() - padLeft;
-    cout << setw(padLeft)<< "" << word << setw(padRight) << "";
-
-}
-static void PrintTableRow(const vector<string> & rowData, const vector<int>& widths)
-{
-    for(short i = 0; i < rowData.size(); i++)
-    {
-        PrintTableCell(rowData[i], widths[i]);
-    }
-
-    cout << "|" << endl;
-}
-
-static void PrintClientsList()
-{
-    vector <clsBankClient> clients = clsBankClient::GetClientsList();
-
-    if (clients.size() == 0)
-    {
-        cout << "\n\n\t\t\t\tNo Clients Available In the System!\n\n";
-    }
-    else
-    {
-        vector<string> rowData = { "Account No.", "Full Name", "Phone Number", "E-mail", "Pin Code", "Balance" };
-        const vector<int> widths = { 20, 30, 18, 30, 15, 25 };
-        cout << "\t\t\t\t\t" << "[" << clients.size() << "]" << " Users were found.\n";
-        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------\n";
-        PrintTableRow(rowData, widths);
-        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------\n";
-        for (clsBankClient & cl : clients) {
-            rowData = { cl.AccountNumber, cl.FullName(),  cl.Phone, cl.Email, cl.Pincode, to_string(cl.Balance) };
-            PrintTableRow(rowData, widths);
-        }
-        cout << "-------------------------------------------------------------------------------------------------------------------------------------------------\n";
-    }
-
-}
-
-static void GetTotalBalances()
-{
-    vector <clsBankClient> clients = clsBankClient::GetClientsList();
-
-    if (clients.size() == 0)
-    {
-        cout << "\n\n\t\t\t\tNo Clients Available In the System!\n\n";
-    }
-    else
-    {
-        vector<string> rowData = { "Account No.", "Full Name", "Balance" };
-        const vector<int> widths = { 20, 30, 25 };
-        cout << "\t\t\t\t\t" << "[" << clients.size() << "]" << " Users were found.\n";
-        cout << "-------------------------------------------------------------------------------\n";
-        PrintTableRow(rowData, widths);
-        cout << "-------------------------------------------------------------------------------\n";
-        for (clsBankClient& cl : clients) {
-            rowData = { cl.AccountNumber, cl.FullName(), to_string(cl.Balance) };
-            PrintTableRow(rowData, widths);
-        }
-        cout << "-------------------------------------------------------------------------------\n";
-        double totaleBalances = clsBankClient::GetTotalBalances();
-        PrintTableRow({ "Total Balances", "", to_string(totaleBalances) }, { 20, 30, 25 });
-        cout << "-------------------------------------------------------------------------------\n";
-        cout << endl << "\t\t" << clsUtility::NumberToText(static_cast<long long>(totaleBalances))<< " $ \n\n";
-
-    }
-
-}
 
 int main()
 {
-    clsMainMenue::ShowMainMenue();
+    clsMainScreen::ShowMainMenue();
     return 0;
 }

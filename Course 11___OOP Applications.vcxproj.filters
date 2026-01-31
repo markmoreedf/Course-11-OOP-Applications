@@ -36,7 +36,16 @@
     <ClInclude Include="include\clsScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\clsMainMenue.h">
+    <ClInclude Include="include\clsMainScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsClientListScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsTotalBalancesScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
