@@ -8,67 +8,64 @@
 #include "clsTotalBalancesScreen.h"
 #include "clsAddNewClientScreen.h"
 #include "clsUpdateClientScreen.h"
-#include "clsDeleteClientScreen.h"
-#include "clsFindClientScreen.h"
-#include "clsTransactionScreen.h" 
-
 class clsMainScreen : protected clsScreen
 {
 private:
     enum enMainMenueOption
     {
         eShowClientsList = 1,
-        eFindClient = 2,
-        eAddNewClient = 3,
-        eUpdateClientData = 4,
-        eDeleteClient = 5,
-        eTransactionsMenue = 6,
-        eManageUsersMenue = 7,
-        eLogout = 8
+        eGetTotalBalances = 2,
+        eFindClient = 3,
+        eAddNewClient = 4,
+        eUpdateClientData = 5,
+        eDeleteClient = 6,
+        eTransactionsMenue = 7,
+        eManageUsersMenue = 8,
+        eLogout = 9
     };
 
     static enMainMenueOption _ReadMainMenueOption()
     {
-        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 9, "                           Choose what do you want to do? [1-9]: ");
+        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 9, clsScreen::spaces + "Choose what do you want to do? [1-9]: ");
     }
     static void _ReturnToMainMenue()
     {
-        clsScreen::Print("\n\n");
         clsScreen::_PauseScreen();
-        ShowMainMenue();
-    } 
-    static void _ClientsListScreen()
+    }
+     
+    static void _PrintClientsList()
     {
-        ("cls");
         clsClientListScreen::ShowClientsListScreen();
     }
-    static void _FindCliendScreen()
+    static void _PrintTotalBalances()
     {
-        system("cls");
-        clsFindClientScreen::ShowFindClientScreen();
+        clsTotalBalancesScreen::ShowTotalBalancesScreen();
     }
-    static void _AddNewClientScreen()
+    static void _AddNewClient()
     {
-        ("cls");
         clsAddNewClientScreen::AddNewClientScreen();
     }
-    static void _UpdateClientScreen()
+    static void _UpdateClientData()
     {
-        system("cls");
         clsUpdateClientScreen::UpdateClientScreen();
-    } 
-    static void _DeleteClientScreen()
-    {
-        system("cls");
-        clsDeleteClientScreen::DeleteClienScreen();
-    }
-    static void _TransactionsScreen()
-    {
-        system("cls");
-        clsTransactionScreen::ShowTransactionMenue();   
     }
 
-    static void _ManageUsersScreen()
+    static void _FindAndShowClient()
+    {
+        system("cls");
+        clsScreen::Print("Here will be find client screen\n");
+    }
+    static void _DeleteClient()
+    {
+        system("cls");
+        clsScreen::Print("Here will be delete client menue\n");
+    }
+    static void _ShowTransactionsMenue()
+    {
+        system("cls");
+        clsScreen::Print("Here will be transactions menue\n");
+    }
+    static void _ShowUsersMenue()
     {
         system("cls");
         clsScreen::Print("Here will be show users screen\n");
@@ -84,25 +81,29 @@ private:
         switch (choice)
         {
         case eShowClientsList:
-            _ClientsListScreen();
+            _PrintClientsList();
+            break;
+        case eGetTotalBalances:
+            _PrintTotalBalances();
             break;
         case eFindClient:
-            _FindCliendScreen();
+            _FindAndShowClient();
             break;
         case eAddNewClient:
-            _AddNewClientScreen();
+            _AddNewClient();
             break;
         case eUpdateClientData:
-            _UpdateClientScreen();
+            _UpdateClientData();
             break;
         case eDeleteClient:
-            _DeleteClientScreen();
+            _DeleteClient();
+            _ReturnToMainMenue();
             break;
         case eTransactionsMenue:
-            _TransactionsScreen();
+            _ShowTransactionsMenue();
             break;
         case eManageUsersMenue:
-            _ManageUsersScreen();           
+            _ShowUsersMenue();           
             break;
         case eLogout:
             _LoginScreen();
@@ -117,21 +118,22 @@ private:
 
     }
 
+
 public:
     static void ShowMainMenue()
     {
         system("cls");
         _PrintHeader("Main Screen");
-        std::cout << "                           " << "=================================\n";
-        std::cout << "                            " << "[1] Show Clients List.\n";
-        std::cout << "                            " << "[2] Find Client.\n";
-        std::cout << "                            " << "[3] Add New Client.\n";
-        std::cout << "                            " << "[4] Update Client Data.\n";
-        std::cout << "                            " << "[5] Delete Client.\n";
-        std::cout << "                            " << "[6] Transactions Menue.\n";
-        std::cout << "                            " << "[7] Manage Useres Menue\n";
-        std::cout << "                            " << "[8] Logout.\n";
-        std::cout << "                           " << "=================================\n\n";
+        std::cout << clsScreen::spaces << "[1] Show Clients List.\n";
+        std::cout << clsScreen::spaces << "[2] Get Total Balances.\n";
+        std::cout << clsScreen::spaces << "[3] Find Client.\n";
+        std::cout << clsScreen::spaces << "[4] Add New Client.\n";
+        std::cout << clsScreen::spaces << "[5] Update Client Data.\n";
+        std::cout << clsScreen::spaces << "[6] Delete Client.\n";
+        std::cout << clsScreen::spaces << "[7] Transactions Menue.\n";
+        std::cout << clsScreen::spaces << "[8] Manage Useres Menue\n";
+        std::cout << clsScreen::spaces << "[9] Logout.\n\n";
+        std::cout << clsScreen::spaces << "=============================================\n\n";
         
         enMainMenueOption choice =  _ReadMainMenueOption();
         _PerformMainMenueChoice(choice);

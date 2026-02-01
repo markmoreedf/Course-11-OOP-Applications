@@ -15,23 +15,8 @@ private:
     clsScreen::Print("");  client.Phone = MyInputLibrary::ReadLine("Phone: ");
     clsScreen::Print("");  client.Pincode = MyInputLibrary::ReadLine("Pin Code: ");
     clsScreen::Print("");  client.Balance = MyInputLibrary::ReadPositiveDouble("Balance: ");
-    }
 
-    static void _Print(clsBankClient& client)
-    {
-        clsScreen::Print("\n");
-        clsScreen::Print("        Client Card\n");
-        clsScreen::Print("=============================\n");
-        clsScreen::Print("First Name   : " + client.FirstName + "\n");
-        clsScreen::Print("Last Name    : " + client.LastName + "\n");
-        clsScreen::Print("Email        : " + client.Email + "\n");
-        clsScreen::Print("Phone        : " + client.Phone + "\n");
-        clsScreen::Print("Account No.  : " + client.AccountNumber + "\n");
-        clsScreen::Print("Pincode      : " + client.Pincode + "\n");
-        clsScreen::Print("Balance      : " + to_string(client.Balance) + "\n");
-        clsScreen::Print("=============================\n\n");
     }
-
 public: 
     static void AddNewClientScreen()
     {
@@ -48,14 +33,6 @@ public:
         clsBankClient newClient = clsBankClient::GetAddNewClientObject(AccountNumber);
         _ReadClientData(newClient);
 
-        _Print(newClient);
-        clsScreen::Print(""); // just to allign the msg of the next line
-        if (! MyInputLibrary::YesNo("Do you want to add this client? (Y/N): "))
-        {
-            clsScreen::Print("Operation cancelled. Client not added.\n");
-            return;
-        }
-
         clsBankClient::enSaveResults saveResult = newClient.Save();
         switch (saveResult)
         {
@@ -69,7 +46,6 @@ public:
             clsScreen::Print("Account Number already exists. Cannot add new client.\n");
             break;
         }
-     
     }
 };
 
