@@ -16,9 +16,9 @@ The goal of this project is to manage bank clients and users through a console i
 * **Find Client:** Search for specific clients quickly. 🔍
 * **Object-Oriented Design:** * `clsPerson`: Base class for personal data.
     * `clsBankClient`: Derived class for banking-specific logic.
+* **Delete Client:** Securely remove records from the system. 🗑️
 
 ### ⏳ Coming Soon (Roadmap)
-* **Delete Client:** Securely remove records from the system. 🗑️
 * **Transactions Menu:**
     * Deposit & Withdraw logic. 💰
     * Total Balances view.
