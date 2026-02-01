@@ -106,7 +106,7 @@ namespace MyInputLibrary
         return c;
     }
 
-    static bool YesNo(const string & msg = "Enter Y/N")
+    static bool ReadYesNo(const string & msg = "Enter Y/N")
     {
         char yesOrNo;
         // check if the input character is not Y or N
