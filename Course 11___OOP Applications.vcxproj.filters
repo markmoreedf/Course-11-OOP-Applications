@@ -54,6 +54,15 @@
     <ClInclude Include="include\clsUpdateClientScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\clsDeleteClientScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsFindClientScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsTransactionScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Course 11___OOP Applications.cpp">
