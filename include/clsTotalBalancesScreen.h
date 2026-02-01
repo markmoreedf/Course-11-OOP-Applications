@@ -9,7 +9,6 @@ class clsTotalBalancesScreen :
 public:
     static void ShowTotalBalancesScreen()
     {
-        system("cls");
         float totalBalances = clsBankClient::GetTotalBalances();
         vector <clsBankClient> clients = clsBankClient::GetClientsList();
         vector<vector<string>> data;
