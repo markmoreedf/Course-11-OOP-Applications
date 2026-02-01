@@ -2,6 +2,7 @@
 #include "clsScreen.h"
 #include "MyInputLibrary.h"
 #include "clsTotalBalancesScreen.h"
+#include "clsDepositScreen.h"
 
 class clsTransactionScreen : protected clsScreen
 {
@@ -23,17 +24,14 @@ private:
 
     static void _DepositScreen()
     {
-        system("cls");
-        clsScreen::Print("Here will be deposit screen\n");
+        clsDepositScreen::ShowDepositScreen();
     }
     static void _WithdrawScreen()
     {
-        system("cls");
         clsScreen::Print("Here will be withdraw screen\n");
     }
     static void _AllBalancesScreen()
     {
-        system("cls");
         clsTotalBalancesScreen::ShowTotalBalancesScreen();
     }
     
@@ -51,18 +49,19 @@ private:
         switch (choice)
         {
         case eDeposit:
+            system("cls");
             _DepositScreen();            
             break;
         case eWithdraw:
+            system("cls");
             _WithdrawScreen();           
             break;                  
         case eAllBalances:
+            system("cls");
             _AllBalancesScreen();           
             break;
         case eMainMenue:
-            // clsMainScreen::ShowMainMenue();
-            // break;
-            return; // Exit to main menue but without calling more functions. recursion avoidance
+            return; // Exit to main menue, without calling clsMainScreen::ShowMainMenue(). recursion avoidance
         default:
             clsScreen::Print("Invalid choice. Please try again.\n");
             break;
