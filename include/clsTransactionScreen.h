@@ -81,8 +81,7 @@ public:
         clsScreen::Print(" [3] Show All Balances.\n");
         clsScreen::Print(" [4] Return to Main Menue.\n");
         clsScreen::Print("=================================\n");
-        enTransactionMenueOption choice = _ReadTransactionMenueOption();
-        _PerformTransactionMenueChoice(choice);
+        _PerformTransactionMenueChoice(_ReadTransactionMenueOption());
     }
 
 };
