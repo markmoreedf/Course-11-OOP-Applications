@@ -180,7 +180,7 @@ private:
         __declspec(property(get = GetPincode, put = SetPincode)) string Pincode;
         __declspec(property(get = GetBalance, put = SetBalance)) double Balance;
 
-        bool IsEmpty() const { return _Mode == enMode::EmptyMode; }
+        bool IsEmpty() const { return (_Mode == enMode::EmptyMode); }
 
         static clsBankClient FindClient(const string & AccountNumber)
         {
@@ -277,6 +277,33 @@ private:
                 totalBalances += cl.Balance;
             }
             return totalBalances;
+        }
+
+        
+        // return true or flase for now. later we can make an enum for more detailed info
+        bool Deposite(double amount)
+        {
+            if( amount <= 0 )
+                return false;
+
+            _Balance += amount;
+            if (Save() == svSucceeded)
+                return true;
+
+            return false;
+        }
+
+        // return true or flase for now. later we can make an enum for more detailed info
+        bool Withdraw(double amount)
+        {
+            if (amount <= 0 || amount > this->_Balance)
+                return false;
+
+            _Balance -= amount;
+            if (Save() == svSucceeded)
+                return true;
+
+            return false;
         }
 
 };
