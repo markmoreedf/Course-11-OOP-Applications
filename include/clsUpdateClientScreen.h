@@ -85,7 +85,7 @@ public:
         _PrintOldVsNewClientData(client, newClientData);
 
         clsScreen::Print(""); // just to allign the msg of the next line
-        if( ! MyInputLibrary::YesNo("Do you want to update this client? (Y/N): "))
+        if( ! MyInputLibrary::ReadYesNo("Do you want to update this client? (Y/N): "))
         {
             clsScreen::Print("\nUpdate cancelled by user.\n");
             return;

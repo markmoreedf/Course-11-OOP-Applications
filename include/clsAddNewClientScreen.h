@@ -50,7 +50,7 @@ public:
 
         _Print(newClient);
         clsScreen::Print(""); // just to allign the msg of the next line
-        if (! MyInputLibrary::YesNo("Do you want to add this client? (Y/N): "))
+        if (! MyInputLibrary::ReadYesNo("Do you want to add this client? (Y/N): "))
         {
             clsScreen::Print("Operation cancelled. Client not added.\n");
             return;

@@ -40,7 +40,7 @@ public:
         _Print(client);
 
         clsScreen::Print("");
-        if (! MyInputLibrary::YesNo("Are you sure you want to delete this client? (Y/N): "))
+        if (! MyInputLibrary::ReadYesNo("Are you sure you want to delete this client? (Y/N): "))
             return;
         
         if (client.Delete())
