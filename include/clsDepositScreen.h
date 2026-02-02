@@ -36,6 +36,7 @@ public:
         {
             clsScreen::Print("\n");
             clsScreen::Print("Amount deposited successfully.\n");
+            clsScreen::Print("New Balance is: " + to_string(client.Balance) + "\n");
         }
         else
         {
