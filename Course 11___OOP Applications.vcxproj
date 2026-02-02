@@ -145,6 +145,7 @@
     <ClInclude Include="include\clsTransactionScreen.h" />
     <ClInclude Include="include\clsUpdateClientScreen.h" />
     <ClInclude Include="include\clsUtility.h" />
+    <ClInclude Include="include\clsWithdrawScreen.h" />
     <ClInclude Include="include\MyInputLibrary.h" />
   </ItemGroup>
   <ItemGroup>

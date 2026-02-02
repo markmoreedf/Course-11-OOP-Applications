@@ -29,7 +29,8 @@ private:
 
     static enMainMenueOption _ReadMainMenueOption()
     {
-        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 9, "                           Choose what do you want to do? [1-9]: ");
+        clsScreen::Print("");
+        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 9, "Choose what do you want to do? [1-9]: ");
     }
     static void _ReturnToMainMenue()
     {
@@ -39,7 +40,7 @@ private:
     } 
     static void _ClientsListScreen()
     {
-        ("cls");
+        system("cls");
         clsClientListScreen::ShowClientsListScreen();
     }
     static void _FindCliendScreen()
@@ -49,7 +50,7 @@ private:
     }
     static void _AddNewClientScreen()
     {
-        ("cls");
+        system("cls");
         clsAddNewClientScreen::AddNewClientScreen();
     }
     static void _UpdateClientScreen()
@@ -121,17 +122,17 @@ public:
     static void ShowMainMenue()
     {
         system("cls");
-        _PrintHeader("Main Screen");
-        std::cout << "                           " << "=================================\n";
-        std::cout << "                            " << "[1] Show Clients List.\n";
-        std::cout << "                            " << "[2] Find Client.\n";
-        std::cout << "                            " << "[3] Add New Client.\n";
-        std::cout << "                            " << "[4] Update Client Data.\n";
-        std::cout << "                            " << "[5] Delete Client.\n";
-        std::cout << "                            " << "[6] Transactions Menue.\n";
-        std::cout << "                            " << "[7] Manage Useres Menue\n";
-        std::cout << "                            " << "[8] Logout.\n";
-        std::cout << "                           " << "=================================\n\n";
+        _PrintHeader("Main Screen", 5);
+        clsScreen::Print("=================================\n");
+        clsScreen::Print(" [1] Show Clients List.\n");
+        clsScreen::Print(" [2] Find Client.\n");
+        clsScreen::Print(" [3] Add New Client.\n");
+        clsScreen::Print(" [4] Update Client Data.\n");
+        clsScreen::Print(" [5] Delete Client.\n");
+        clsScreen::Print(" [6] Transactions Menue.\n");
+        clsScreen::Print(" [7] Manage Useres Menue\n");
+        clsScreen::Print(" [8] Logout.\n");
+        clsScreen::Print("=================================\n\n");
         
         enMainMenueOption choice =  _ReadMainMenueOption();
         _PerformMainMenueChoice(choice);

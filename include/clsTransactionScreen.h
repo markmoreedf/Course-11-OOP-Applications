@@ -3,6 +3,7 @@
 #include "MyInputLibrary.h"
 #include "clsTotalBalancesScreen.h"
 #include "clsDepositScreen.h"
+#include "clsWithdrawScreen.h"
 
 class clsTransactionScreen : protected clsScreen
 {
@@ -28,15 +29,12 @@ private:
     }
     static void _WithdrawScreen()
     {
-        clsScreen::Print("Here will be withdraw screen\n");
+        clsWithdrawScreen::ShowWithdrawScreen();
     }
     static void _AllBalancesScreen()
     {
         clsTotalBalancesScreen::ShowTotalBalancesScreen();
     }
-    
-
-
 
     static enTransactionMenueOption _ReadTransactionMenueOption()
     {
@@ -73,13 +71,13 @@ public:
     static void ShowTransactionMenue()
     {
         system("cls");
-        clsScreen::_PrintHeader("Transactions Menue");
-        clsScreen::Print("=================================\n");
+        clsScreen::_PrintHeader("Transactions Menue",2);
+        clsScreen::Print("===============================\n");
         clsScreen::Print(" [1] Deposit.\n");
         clsScreen::Print(" [2] Withdraw.\n");
         clsScreen::Print(" [3] Show All Balances.\n");
         clsScreen::Print(" [4] Return to Main Menue.\n");
-        clsScreen::Print("=================================\n");
+        clsScreen::Print("===============================\n");
         _PerformTransactionMenueChoice(_ReadTransactionMenueOption());
     }
 
