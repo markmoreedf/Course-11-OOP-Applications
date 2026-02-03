@@ -60,38 +60,54 @@ public:
             cout << borderColor << dividerChar;
         cout << Colors::Reset << "\n";
     }
+    static void PrintTableFooter(const vector<string>& footerData,
+        const vector<short>& widths,
+        const short& tableWidth,
+        short shiftRight = 0,
+        char dividerSymbol = '-',
+        const string& borderColor = Colors::Yellow)
+    {
+        clsTable::PrintTableRow(footerData, widths, shiftRight, borderColor);
+        clsTable::PrintDividerLine(tableWidth, shiftRight, dividerSymbol, borderColor);
+
+    }
 
     static void PrintTable(const vector<string>& coloumsNames,
         const vector<short>& widths,
         const vector<vector<string>>& data,
+        const string& emptyMessage,
         short shiftRight = 0,
-        char dividerChar = '-',
-        const string& emptyDataMsg = "\nNo data Available!\n",
-        const string& borderColor = Colors::Yellow)
+        const string& borderColor = Colors::Reset)
     {
-        if (data.empty())
+        // calculate table width
+        short tableWidth = 1; 
+        for (const short& w : widths)
+            tableWidth += w + 1; 
+
+        // print header
+        PrintDividerLine(tableWidth, shiftRight, '-', borderColor);
+        PrintTableRow(coloumsNames, widths, shiftRight, borderColor);
+        PrintDividerLine(tableWidth, shiftRight, '-', borderColor);
+
+        // print data rows or empty message
+        if (data.size() == 0)
         {
             _PrintMargin(shiftRight);
-            cout << emptyDataMsg;
-            return;
+            cout << borderColor << "|" << Colors::Reset;
+            short totalDataWidth = tableWidth - 2; // -2 for the borders
+            short padLeft = (totalDataWidth - emptyMessage.length()) / 2;
+            short padRight = totalDataWidth - emptyMessage.length() - padLeft;
+            cout << setw(padLeft) << "" << emptyMessage << setw(padRight) << "";
+            cout << borderColor << "|\n" << Colors::Reset;
         }
-
-        short tableWidth = widths.size() + 1;
-        for (const short& w : widths)
-            tableWidth += w;
-
-        // 1. Header
-        PrintDividerLine(tableWidth, shiftRight, dividerChar, borderColor);
-        PrintTableRow(coloumsNames, widths, shiftRight, borderColor);
-        PrintDividerLine(tableWidth, shiftRight, dividerChar, borderColor);
-
-        // 2. Data Rows
-        for (const vector<string>& dataRecord : data)
+        else
         {
-            PrintTableRow(dataRecord, widths, shiftRight, borderColor);
+            for (const vector<string>& row : data)
+            {
+                PrintTableRow(row, widths, shiftRight, borderColor);
+            }
         }
-
-        // 3. Footer Line
-        PrintDividerLine(tableWidth, shiftRight, dividerChar, borderColor);
+        // print footer line
+        PrintDividerLine(tableWidth, shiftRight, '-', borderColor);
     }
 };

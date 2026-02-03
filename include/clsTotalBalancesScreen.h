@@ -21,9 +21,9 @@ public:
             data.push_back({ cl.AccountNumber, cl.FullName(), to_string(cl.Balance) });
         }
 
-        clsUtility::PrintTable(coloumsNames, widths, data, "\n\n\t\t\t\tNo Clients Available In the System!\n\n", 18, clsTable::Colors::Yellow);
+        clsTable::PrintTable(coloumsNames, widths, data, "\n\n\t\t\t\tNo Clients Available In the System!\n\n", 18, clsTable::Colors::Yellow);
         // hard coded for simplicity.. 
-        clsUtility::PrintTableFooter({ { "Total Balances" }, {  }, {  to_string(totalBalances)} }, widths, 79, 18);
+        clsTable::PrintTableFooter({ { "Total Balances" }, {  }, {  to_string(totalBalances)} }, widths, 79, 18);
 
     }
 

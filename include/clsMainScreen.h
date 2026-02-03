@@ -122,30 +122,6 @@ public:
     static void ShowMainMenue()
     {
         system("cls");
-        // 1. Define the codes as strings
-        std::string red = "\033[31m";     std::string boldRed = "\033[1;31m";
-        std::string green = "\033[32m";   std::string boldGreen = "\033[1;32m";
-        std::string yellow = "\033[33m";  std::string boldYellow = "\033[1;33m";
-        std::string blue = "\033[34m";    std::string boldBlue = "\033[1;34m";
-        std::string magenta = "\033[35m"; std::string boldMagenta = "\033[1;35m";
-        std::string reset = "\033[0m"; 
-       
-
-        // 2. Use them in your cout
-        std::cout << red << "This text is RED!" << reset << std::endl;
-        std::cout << boldRed << "This text is BOLD RED!" << reset << std::endl;
-        std::cout << green << "This text is GREEN!" << reset << std::endl;
-        std::cout << boldGreen << "This text is BOLD GREEN!" << reset << std::endl;
-        std::cout << yellow << "This text is YELLOW!" << reset << std::endl;
-        std::cout << boldYellow << "This text is BOLD YELLOW!" << reset << std::endl;
-        std::cout << blue << "This text is BLUE!" << reset << std::endl;
-        std::cout << boldBlue << "This text is BOLD BLUE!" << reset << std::endl;
-        std::cout << magenta << "This text is MAGENTA!" << reset << std::endl;
-        std::cout << boldMagenta << "This text is BOLD MAGENTA!" << reset << std::endl;
-
-
-        std::cout << "This text is back to normal." << std::endl;
-
         _PrintHeader("Main Screen", 5);
         clsScreen::Print("=================================\n");
         clsScreen::Print(" [1] Show Clients List.\n");
