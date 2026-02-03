@@ -496,11 +496,11 @@ public:
     {
         clsTable::PrintDividerLine(width, shiftRight, character);
     }
-    static void PrintTableFooter(const vector<string>& footerData, const vector<short>& widths, const short& tableWidth, const short& shiftRight = 0, const string& borderColor = clsTable::Colors::Reset)
+    static void PrintTableFooter(const vector<string>& footerData, const vector<short>& widths, const short& tableWidth, const short& shiftRight = 0,const char & dividerSymbol = '-', const string & borderColor = clsTable::Colors::Reset)
     {
 
         clsTable::PrintTableRow(footerData, widths, shiftRight, borderColor);
-        clsTable::PrintDividerLine(tableWidth, shiftRight, borderColor);
+        clsTable::PrintDividerLine(tableWidth, shiftRight,dividerSymbol,borderColor);
     }
 
     static void PrintTable(const vector<string>& coloumsNames, const vector<short>& widths, const vector<vector<string>>& data, const string& emptyDataMsg = "\n\n\t\t\t\tNo data Available!\n\n", const short& shiftRight = 0, const string & borderColor = clsTable::Colors::Reset)
