@@ -17,11 +17,11 @@ The goal of this project is to manage bank clients and users through a console i
 * **Object-Oriented Design:** * `clsPerson`: Base class for personal data.
     * `clsBankClient`: Derived class for banking-specific logic.
 * **Delete Client:** Securely remove records from the system. 🗑️
-
-### ⏳ Coming Soon (Roadmap)
 * **Transactions Menu:**
     * Deposit & Withdraw logic. 💰
     * Total Balances view.
+
+### ⏳ Coming Soon (Roadmap)
 * **User Management:** Login system with different permissions/access levels. 🔑
 * **Login Register:** Logging every login attempt to a file. 📝
 * **Currency Exchange:** A specialized system for handling multiple currencies. 🌍
