@@ -13,7 +13,7 @@ class clsClientListScreen :
             clsScreen::_PrintHeader("Clients List. ["+ to_string(clients.size()) + "] found", 15);
 
             vector<string> coloumsNames = { "Account No.", "Full Name", "Phone Number", "E-mail", "Pin Code", "Balance" };
-            const vector<short> widths = { 20, 30, 18, 30, 15, 25 };
+            const vector<int> widths = { 20, 30, 18, 30, 15, 25 };
 
             for (clsBankClient& cl : clients) {
                 data.push_back({ cl.AccountNumber, cl.FullName(),  cl.Phone, cl.Email, cl.Pincode, to_string(cl.Balance) });

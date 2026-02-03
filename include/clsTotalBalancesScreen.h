@@ -15,7 +15,7 @@ public:
         clsScreen::_PrintHeader("Total Balances Screen. [" + to_string(clients.size()) + "] clients found");
 
         vector<string> coloumsNames = { "Account No.", "Full Name", "Balance" };
-        const vector<short> widths = { 20, 30, 25 };
+        const vector<int>widths = { 20, 30, 25 };
 
         for (clsBankClient& cl : clients) {
             data.push_back({ cl.AccountNumber, cl.FullName(), to_string(cl.Balance) });
