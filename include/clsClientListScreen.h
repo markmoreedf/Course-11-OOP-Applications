@@ -4,10 +4,9 @@
 #include "clsUtility.h"
 #include <sstream>
 
-class clsClientListScreen :
-    protected clsScreen
+class clsClientListScreen : protected clsScreen
 {
-    public:
+public:
         static void ShowClientsListScreen()
         {
             vector <clsBankClient> clients = clsBankClient::GetClientsList();
@@ -19,7 +18,7 @@ class clsClientListScreen :
 
 
             for (clsBankClient& cl : clients) {
-                // 1. Format the number to a plain string first (e.g., "1250.00")
+                // 1. Format the number to a plain string first "1250.00"
                 std::stringstream numStream;
                 numStream << fixed << setprecision(2) << cl.Balance;
                 string formattedNum = numStream.str();

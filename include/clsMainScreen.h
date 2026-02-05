@@ -11,6 +11,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsTransactionScreen.h" 
+#include "clsManageUsersScreen.h"
 
 class clsMainScreen : protected clsScreen
 {
@@ -72,7 +73,7 @@ private:
     static void _ManageUsersScreen()
     {
         system("cls");
-        clsScreen::Print("Here will be show users screen\n");
+        clsManageUsersScreen::ShowManageUsersScreen();
     }
     static void _LoginScreen()
     {
