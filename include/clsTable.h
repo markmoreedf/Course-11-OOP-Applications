@@ -9,16 +9,18 @@ class clsTable
 public:
     struct Colors
     {
-        inline static constexpr const char* Red = "\033[31m";
-        inline static constexpr const char* Green = "\033[32m";
-        inline static constexpr const char* Yellow = "\033[33m";
-        inline static constexpr const char* Blue = "\033[34m";
-        inline static constexpr const char* Magenta = "\033[35m";
-        inline static constexpr const char* BoldRed = "\033[1;31m";
-        inline static constexpr const char* BoldGreen = "\033[1;32m";
-        inline static constexpr const char* BoldYellow = "\033[1;33m";
-        inline static constexpr const char* BoldBlue = "\033[1;34m";
-        inline static constexpr const char* BoldMagenta = "\033[1;35m";
+        inline static const string Red = "\033[31m";
+        inline static const string Green = "\033[32m";
+        inline static const string Yellow = "\033[33m";
+        inline static const string Blue = "\033[34m";
+        inline static const string Magenta = "\033[35m";
+        inline static const string Cyan = "\033[36m";
+        inline static const string BrightRed = "\033[1;31m";
+        inline static const string BrightGreen = "\033[1;32m";
+        inline static const string BrightYellow = "\033[1;33m";
+        inline static const string BrightBlue = "\033[1;34m";
+        inline static const string BrightMagenta = "\033[1;35m";
+        inline static const string BrightCyan = "\033[1;36m";
         inline static constexpr const char* Reset = "\033[0m";
     };
 
@@ -28,19 +30,41 @@ private:
         std::cout << std::setw(margin) << std::left << "";
     }
 
+private:
+    // Get the visible length of a string, ignoring ANSI escape codes (coloring etc.) 
+    static int _GetVisibleLength(const std::string& s)
+    {
+        int length = 0;
+        bool ignoring = false;
+        for (size_t i = 0; i < s.length(); i++) {
+            if (s[i] == '\033') { // Start of an escape sequence
+                ignoring = true;
+            }
+            if (!ignoring) {
+                length++;
+            }
+            if (ignoring && s[i] == 'm') { // End of an escape sequence
+                ignoring = false;
+            }
+        }
+        return length;
+    }
+
     // Print a single table cell: prints left border (colored), cell content (centered, truncated if needed)
-    static void _PrintTableCell(const std::string& word, int width, const char* borderColor = Colors::Reset)
+    static void _PrintTableCell(const std::string& word, int width, const string& borderColor = Colors::Reset)
     {
         if (width < 0) width = 0;
         std::cout << borderColor << "|" << Colors::Reset;
 
         std::string display = word;
-        if (static_cast<int>(display.length()) > width)
-            display = display.substr(0, width);
+        int visibleLen = _GetVisibleLength(display); // Use the helper here!
 
-        int padLeft = (width - static_cast<int>(display.length())) / 2;
+        // If visible text is too long, we might need to truncate (tricky with colors, 
+        // but for now let's focus on padding)
+
+        int padLeft = (width - visibleLen) / 2;
         if (padLeft < 0) padLeft = 0;
-        int padRight = width - static_cast<int>(display.length()) - padLeft;
+        int padRight = width - visibleLen - padLeft;
         if (padRight < 0) padRight = 0;
 
         std::cout << std::setw(padLeft) << "" << display << std::setw(padRight) << "";
@@ -48,7 +72,7 @@ private:
 
 public:
     // Print a row. `margin` is how many spaces to shift right.
-    static void PrintTableRow(const std::vector<std::string>& rowData, const std::vector<int>& widths, int margin, const char* borderColor = Colors::Reset)
+    static void PrintTableRow(const std::vector<std::string>& rowData, const std::vector<int>& widths, int margin, const string & borderColor = Colors::Reset)
     {
         _PrintMargin(margin);
 
@@ -64,7 +88,7 @@ public:
         std::cout << borderColor << "|" << Colors::Reset << "\n";
     }
 
-    static void PrintDividerLine(int tableWidth, int shiftRight, char dividerChar = '-', const char* borderColor = Colors::Reset)
+    static void PrintDividerLine(int tableWidth, int shiftRight, char dividerChar = '-', const string & borderColor = Colors::Reset)
     {
         if (tableWidth < 0) tableWidth = 0;
         _PrintMargin(shiftRight);
@@ -79,7 +103,7 @@ public:
         int tableWidth,
         int shiftRight = 0,
         char dividerSymbol = '-',
-        const char* borderColor = Colors::Yellow)
+        const string & borderColor = Colors::Yellow)
     {
         clsTable::PrintTableRow(footerData, widths, shiftRight, borderColor);
         clsTable::PrintDividerLine(tableWidth, shiftRight, dividerSymbol, borderColor);
@@ -94,7 +118,7 @@ public:
         const std::vector<std::vector<std::string>>& data,
         const std::string& emptyMessage,
         int shiftRight = 0,
-        const char* borderColor = Colors::Reset)
+        const string & borderColor = Colors::Reset)
     {
         // validate inputs
         std::size_t cols = widths.size();

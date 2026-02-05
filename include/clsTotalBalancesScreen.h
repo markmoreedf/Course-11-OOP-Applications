@@ -2,6 +2,7 @@
 #include "clsScreen.h"
 #include "clsBankClient.h"
 #include "clsUtility.h"
+#include <sstream>
 
 class clsTotalBalancesScreen :
     protected clsScreen
@@ -18,12 +19,28 @@ public:
         const vector<int>widths = { 20, 30, 25 };
 
         for (clsBankClient& cl : clients) {
-            data.push_back({ cl.AccountNumber, cl.FullName(), to_string(cl.Balance) });
+            std::stringstream sstream;
+            sstream << fixed << setprecision(2) << cl.Balance;
+            
+            data.push_back({ cl.AccountNumber, cl.FullName(),  clsTable::Colors::Green + "$ " + clsTable::Colors::Reset + sstream.str() });
         }
 
-        clsTable::PrintTable(coloumsNames, widths, data, "\n\n\t\t\t\tNo Clients Available In the System!\n\n", 18, clsTable::Colors::Yellow);
+        clsTable::PrintTable(coloumsNames,
+            widths,
+            data,
+            "\n\n\t\t\t\tNo Clients Available In the System!\n\n",
+            18, clsTable::Colors::BrightCyan);
+
+        std::stringstream ssTotal;
+        ssTotal << fixed << setprecision(2) << totalBalances;
+
+
         // hard coded for simplicity.. 
-        clsTable::PrintTableFooter({ { "Total Balances" }, {  }, {  to_string(totalBalances)} }, widths, 79, 18);
+        clsTable::PrintTableFooter({
+            { "Total Balances" },
+            { },
+            { clsTable::Colors::Green + "$ " + clsTable::Colors::Reset + ssTotal.str() } 
+            }, widths, 79, 18, '-',clsTable::Colors::BrightCyan);
 
     }
 
