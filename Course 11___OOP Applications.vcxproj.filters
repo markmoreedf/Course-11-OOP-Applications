@@ -69,6 +69,24 @@
     <ClInclude Include="include\clsWithdrawScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\clsManageUsersScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsUserListScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsFindUserScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsAddNewUserScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsUpdateUserScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsDeleteUserScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Course 11___OOP Applications.cpp">

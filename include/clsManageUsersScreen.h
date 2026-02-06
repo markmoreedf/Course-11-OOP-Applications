@@ -1,8 +1,13 @@
 #pragma once
 #include "clsScreen.h"
 #include "MyInputLibrary.h"
+#include "clsUserListScreen.h"
+#include "clsFindUserScreen.h"
+#include "clsAddNewUserScreen.h"
+#include "clsUpdateUserScreen.h"
+#include "clsDeleteUserScreen.h"
 
-class clsManageUsersScreen : private clsScreen
+class clsManageUsersScreen : protected clsScreen
 {
 private:
     enum enMngUsersMenueOption
@@ -26,23 +31,23 @@ private:
         switch (choice) {
             case eShowUsersList:
                 system("cls");
-                clsScreen::Print("Here will be show users list screen\n");
+                clsUserListScreen::ShowUserListScreen();
                 break;
             case eFindUser: 
                 system("cls");
-                clsScreen::Print("Here will be find user screen\n");
+                clsFindUserScreen::ShowFindUserScreen();
                 break;
             case eAddNewUser:
                 system("cls");
-                clsScreen::Print("Here will be add new user screen\n");
+                clsAddNewUserScreen::ShowAddNewUserScreen();
                 break;
             case eUpdateUserData:
                 system("cls");
-                clsScreen::Print("Here will be update user data screen\n");
+                clsUpdateUserScreen::ShowUpdateUserScreen();
                 break;
             case eDeleteUser:
                 system("cls");
-                clsScreen::Print("Here will be delete user screen\n");
+                clsDeleteUserScreen::ShowDeleteUserScreen();
                 break;
             case eMainMenue:
                 return;

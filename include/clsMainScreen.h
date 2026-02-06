@@ -5,11 +5,10 @@
 #include "clsScreen.h"
 #include "MyInputLibrary.h"
 #include "clsClientListScreen.h"
-#include "clsTotalBalancesScreen.h"
+#include "clsFindClientScreen.h"
 #include "clsAddNewClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsDeleteClientScreen.h"
-#include "clsFindClientScreen.h"
 #include "clsTransactionScreen.h" 
 #include "clsManageUsersScreen.h"
 
@@ -69,12 +68,12 @@ private:
         system("cls");
         clsTransactionScreen::ShowTransactionMenue();   
     }
-
     static void _ManageUsersScreen()
     {
         system("cls");
         clsManageUsersScreen::ShowManageUsersScreen();
     }
+
     static void _LoginScreen()
     {
         system("cls");
