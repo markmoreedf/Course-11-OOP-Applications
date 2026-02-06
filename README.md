@@ -39,8 +39,13 @@ The goal of this project is to manage bank clients and users through a console i
 ## 📂 Project Structure
 * `clsPerson.h`: The base class containing shared personal attributes.
 * `clsBankClient.h`: The main logic for bank clients and file interactions.
-* `clsString.h`: Helper library for advanced string operations.
-* `Clients.txt`: The text-based database for the system.
+* `clsUser.h`: User class for system administrator.
+* `Clients.txt`: The text-based database for the system clients.
+* `Users.txt`: The text-based database for the system users.
+* `MyInputLibrary.h`: Helper library for input validation.
+* `ClsString.h`: Helper library for advanced string operations.
+* `ClsUtility.h`: Helper Utility library.
+* Many classes for screen management, all of them inheriting the `ClsScreen.h` class.
 
 ---
 
