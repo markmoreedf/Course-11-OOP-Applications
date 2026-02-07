@@ -4,6 +4,7 @@
 #include <fstream>
 #include "clsPerson.h"
 #include "clsString.h"
+#include "MyInputLibrary.h"
 
 class clsUser :public clsPerson
 {
@@ -78,7 +79,7 @@ private:
 
         // Expected Data Members Count = 7
         if (vUserData.size() != 7)
-            return _GetEmptyClientObj();
+            return _GetEmptyUserObj();
 
         return clsUser(enMode::UpdateMode,
             vUserData[0],
@@ -101,7 +102,7 @@ private:
         lineOfData += to_string(user._Permissions);
         return lineOfData;
     }
-    static clsUser _GetEmptyClientObj()
+    static clsUser _GetEmptyUserObj()
     {
         return clsUser(enMode::EmptyMode, "", "", "", "", "", "", 0);
     }
@@ -155,9 +156,9 @@ private:
         _SaveDataLineToFile(_ConvertUserObjectToLine(*this), _UsersFileName, true);
     }
 
-public:
 
 public:
+
     clsUser (enMode mode, string username, string password, string firstName, string lastName, string email, string phone, unsigned int permissions)
         : clsPerson(firstName, lastName, email, phone),
         _Mode(mode),
@@ -169,11 +170,168 @@ public:
     
     void SetPassword(string Password) { _Password = Password; }
     string GetPassword() const { return _Password; }
-    string GetUsername() const { return _Username; }
-    __declspec(property(get = GetUsername)) string Username;   // read only property. no setter function. username is unique and should not be changed after creation
     __declspec(property(get = GetPassword, put = SetPassword)) string Password;
 
+    string GetUsername() const { return _Username; }
+    __declspec(property(get = GetUsername)) string Username;   // read only property. no setter function. username is unique and should not be changed after creation
+
+    void SetPermissions(unsigned int Permissions) { _Permissions = Permissions; }
+    unsigned int GetPermissions() const { return _Permissions; }
+    __declspec(property(get = GetPermissions, put = SetPermissions)) unsigned int Permissions;
+
+    void MarkForDelete() { _MarkForDelete = true; }
+    void UnMarkForDelete() { _MarkForDelete = false; }
+    bool IsMarkedForDelete() const { return _MarkForDelete; }
+
+    // Static Methods:
+    static clsUser FindUser(const string& username)
+    {
+        vector<clsUser> vUsers = _LoadUsersFileToVecObjects();
+        for (const clsUser& user : vUsers) {
+            if (user.Username == username)
+                return user;
+        }
+        return _GetEmptyUserObj();
+
+    }
+    static clsUser FindUser(const string& username, const string& password)
+    {
+        clsUser user = FindUser(username);
+
+        if (user.Password == password)
+            return user;
+
+        return _GetEmptyUserObj();
+    }
+
+    static bool IsUserExist(const string& AccNo)
+    {
+        clsUser client = clsUser::FindUser(AccNo);
+        return (!client.IsEmpty());
+    }
+
+    static clsUser GetAddNewClientObject(const string& AccountNumber)
+    {
+        return clsUser(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
+    }
+
+    static vector<clsUser> GetUsersList()
+    {
+        return _LoadUsersFileToVecObjects();
+    }
+
+    // Non Static Methods:
+
     bool IsEmpty() const { return _Mode == enMode::EmptyMode; }
+
+    enum enSaveResults { svFailedEmptyObject = 0, svSucceeded = 1, svUserNameExists = 2 };
+    enSaveResults Save()
+    {
+        switch (_Mode)
+        {
+            case clsUser::EmptyMode:
+            {
+                return svFailedEmptyObject;
+            }
+
+            case clsUser::UpdateMode:
+            {
+                if (_Update())
+                    return svSucceeded;
+                else
+                    return svFailedEmptyObject;
+            }
+
+            case clsUser::AddNewMode:
+            {
+                if (IsUserExist(this->_Username))
+                    return svUserNameExists;
+                else
+                {
+                    _AddNew();
+                    _Mode = enMode::UpdateMode;
+                    return svSucceeded;
+                }
+            }
+
+            default:
+            {
+                return svFailedEmptyObject;
+            }
+
+        }
+
+    }
+
+    enum enDeleteResults { dlSucceeded = 0, dlNotFound = 1, dlCancelledByUser = 2, dlAdminDeleteAttempt = 3 };
+    enDeleteResults Delete()
+    {
+        vector <clsUser> vAllUsers = _LoadUsersFileToVecObjects();
+        for (clsUser& user : vAllUsers) {
+            if (user.Username == this->_Username)
+            {
+                if (user.Username == "admin") // prevent deleting admin users
+                    return dlAdminDeleteAttempt;
+
+                if(!MyInputLibrary::ReadYesNo("Are you sure you want to delete this user ? [y/n]"))
+                    return dlCancelledByUser;
+
+                user.MarkForDelete();
+                _SaveVecClientsToFile(vAllUsers, false);
+                return dlSucceeded;
+            }
+        }
+        return dlNotFound;
+
+    }
+
+    static void SetUserPermissions(clsUser & user)
+    {
+        if (MyInputLibrary::ReadYesNo("Do you want to give full acess ? [y/n]"))
+        {
+            user.Permissions = 127;
+        }
+        else {
+            if (MyInputLibrary::ReadYesNo("Give access to View Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::showClientList;
+            else
+                user.Permissions &= ~enUserPermissions::showClientList;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Find Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::findClient;
+            else
+                user.Permissions &= ~enUserPermissions::findClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Add Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::addClient;
+            else
+                user.Permissions &= ~enUserPermissions::addClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Delete Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::deleteClient;
+            else
+                user.Permissions &= ~enUserPermissions::deleteClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Update Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::updateClient;
+            else
+                user.Permissions &= ~enUserPermissions::updateClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Transactions? [y/n]"))
+                user.Permissions |= enUserPermissions::transactions;
+            else
+                user.Permissions &= ~enUserPermissions::transactions;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Manage Users? [y/n]"))
+                user.Permissions |= enUserPermissions::manageUsers;
+            else
+                user.Permissions &= ~enUserPermissions::manageUsers;
+
+            user.Save();
+        }
+    }
+
+
 
 };
 
