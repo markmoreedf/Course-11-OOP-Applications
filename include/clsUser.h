@@ -210,9 +210,9 @@ public:
         return (!client.IsEmpty());
     }
 
-    static clsUser GetAddNewClientObject(const string& AccountNumber)
+    static clsUser GetAddNewUserObject(const string& username)
     {
-        return clsUser(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
+        return clsUser(enMode::AddNewMode, username, "", "", "", "", "", 0);
     }
 
     static vector<clsUser> GetUsersList()
