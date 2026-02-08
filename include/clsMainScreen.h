@@ -61,7 +61,7 @@ private:
     static void _DeleteClientScreen()
     {
         system("cls");
-        clsDeleteClientScreen::DeleteClienScreen();
+        clsDeleteClientScreen::ShowDeleteClienScreen();
     }
     static void _TransactionsScreen()
     {
