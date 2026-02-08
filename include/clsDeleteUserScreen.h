@@ -47,15 +47,15 @@ public:
 
         clsScreen::Print("");
         if (!MyInputLibrary::ReadYesNo("Are you sure you want to delete this user? (Y/N): "))
+        {
+            clsScreen::Print("User deletion cancelled by user.\n");
             return;
+        }
 
         switch (user.Delete())
         {
             case clsUser::enDeleteResults::dlAdminDeleteAttempt:
                 clsScreen::Print("Deleting admin user is not allowed.\n");
-                break;
-            case clsUser::enDeleteResults::dlCancelledByUser:
-                clsScreen::Print("User deletion cancelled by user.\n");
                 break;
             case clsUser::enDeleteResults::dlNotFound:
                 clsScreen::Print("User not found. Deletion failed.\n");

@@ -309,7 +309,7 @@ public:
 
     }
 
-    enum enDeleteResults { dlSucceeded = 0, dlNotFound = 1, dlCancelledByUser = 2, dlAdminDeleteAttempt = 3 };
+    enum enDeleteResults { dlSucceeded = 0, dlNotFound = 1, dlAdminDeleteAttempt = 2 };
     enDeleteResults Delete()
     {
         if (this->_Username == "admin") // prevent deleting admin users
@@ -320,15 +320,10 @@ public:
         for (clsUser& user : vAllUsers) {
             if (user.Username == this->_Username)
             {
-                if ( MyInputLibrary::ReadYesNo("Are you sure you want to delete this user ? [y/n]") )
-                {
                     user.MarkForDelete();
                     _SaveVecClientsToFile(vAllUsers, false);
                     *this = _GetEmptyUserObj(); // reset the current object to empty state after deletion
                     return dlSucceeded;
-                }
-                else
-                    return dlCancelledByUser;
             }
         }
 
