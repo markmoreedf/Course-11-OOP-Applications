@@ -220,6 +220,52 @@ public:
         return _LoadUsersFileToVecObjects();
     }
 
+  /*  static void SetUserPermissions(clsUser& user)
+    {
+        if (MyInputLibrary::ReadYesNo("Do you want to give full acess ? [y/n]"))
+        {
+            user.Permissions = 127;
+        }
+        else {
+            if (MyInputLibrary::ReadYesNo("Give access to View Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::showClientList;
+            else
+                user.Permissions &= ~enUserPermissions::showClientList;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Find Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::findClient;
+            else
+                user.Permissions &= ~enUserPermissions::findClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Add Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::addClient;
+            else
+                user.Permissions &= ~enUserPermissions::addClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Delete Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::deleteClient;
+            else
+                user.Permissions &= ~enUserPermissions::deleteClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Update Clients? [y/n]"))
+                user.Permissions |= enUserPermissions::updateClient;
+            else
+                user.Permissions &= ~enUserPermissions::updateClient;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Transactions? [y/n]"))
+                user.Permissions |= enUserPermissions::transactions;
+            else
+                user.Permissions &= ~enUserPermissions::transactions;
+
+            if (MyInputLibrary::ReadYesNo("Give access to Manage Users? [y/n]"))
+                user.Permissions |= enUserPermissions::manageUsers;
+            else
+                user.Permissions &= ~enUserPermissions::manageUsers;
+
+            user.Save();
+        }
+    }*/
+
     // Non Static Methods:
 
     bool IsEmpty() const { return _Mode == enMode::EmptyMode; }
@@ -266,71 +312,28 @@ public:
     enum enDeleteResults { dlSucceeded = 0, dlNotFound = 1, dlCancelledByUser = 2, dlAdminDeleteAttempt = 3 };
     enDeleteResults Delete()
     {
+        if (this->_Username == "admin") // prevent deleting admin users
+            return dlAdminDeleteAttempt;
+
         vector <clsUser> vAllUsers = _LoadUsersFileToVecObjects();
+
         for (clsUser& user : vAllUsers) {
             if (user.Username == this->_Username)
             {
-                if (user.Username == "admin") // prevent deleting admin users
-                    return dlAdminDeleteAttempt;
-
-                if(!MyInputLibrary::ReadYesNo("Are you sure you want to delete this user ? [y/n]"))
+                if ( MyInputLibrary::ReadYesNo("Are you sure you want to delete this user ? [y/n]") )
+                {
+                    user.MarkForDelete();
+                    _SaveVecClientsToFile(vAllUsers, false);
+                    *this = _GetEmptyUserObj(); // reset the current object to empty state after deletion
+                    return dlSucceeded;
+                }
+                else
                     return dlCancelledByUser;
-
-                user.MarkForDelete();
-                _SaveVecClientsToFile(vAllUsers, false);
-                return dlSucceeded;
             }
         }
+
         return dlNotFound;
-
     }
-
-    static void SetUserPermissions(clsUser & user)
-    {
-        if (MyInputLibrary::ReadYesNo("Do you want to give full acess ? [y/n]"))
-        {
-            user.Permissions = 127;
-        }
-        else {
-            if (MyInputLibrary::ReadYesNo("Give access to View Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::showClientList;
-            else
-                user.Permissions &= ~enUserPermissions::showClientList;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Find Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::findClient;
-            else
-                user.Permissions &= ~enUserPermissions::findClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Add Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::addClient;
-            else
-                user.Permissions &= ~enUserPermissions::addClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Delete Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::deleteClient;
-            else
-                user.Permissions &= ~enUserPermissions::deleteClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Update Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::updateClient;
-            else
-                user.Permissions &= ~enUserPermissions::updateClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Transactions? [y/n]"))
-                user.Permissions |= enUserPermissions::transactions;
-            else
-                user.Permissions &= ~enUserPermissions::transactions;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Manage Users? [y/n]"))
-                user.Permissions |= enUserPermissions::manageUsers;
-            else
-                user.Permissions &= ~enUserPermissions::manageUsers;
-
-            user.Save();
-        }
-    }
-
 
 
 };
