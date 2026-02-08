@@ -31,7 +31,7 @@ private:
         switch (choice) {
             case eShowUsersList:
                 system("cls");
-                clsUserListScreen::ShowUserListScreen();
+                clsUserListScreen::ShowUsersListScreen();
                 break;
             case eFindUser: 
                 system("cls");
