@@ -23,7 +23,7 @@ private:
     }
 
 public:
-    static void DeleteClienScreen()
+    static void ShowDeleteClienScreen()
     {
         clsScreen::_PrintHeader("Delete Client Screen");
         clsScreen::Print("");   // shifting line for better output format
