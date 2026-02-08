@@ -23,7 +23,7 @@ public:
             data.push_back({ user.Username, displayPassword, user.FullName(), user.Email, user.Phone, displayPermissions});
         }
 
-        clsTable::PrintTable(coloumsNames, widths, data, "\n\n\t\t\t\tNo Users Available In the System!\n\n", 5, clsTable::Colors::BrightCyan);
+        clsTable::PrintTable(coloumsNames, widths, data, "\n\n\t\t\t\tNo Users Available In the System!", 5, clsTable::Colors::BrightCyan);
     }
 };
 
