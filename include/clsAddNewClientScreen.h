@@ -35,7 +35,6 @@ private:
 public: 
     static void AddNewClientScreen()
     {
-        system("cls");
         clsScreen::_PrintHeader("Add New Client Screen");
         clsScreen::Print("");
         string AccountNumber = MyInputLibrary::ReadLine("Enter New Account Number: ");
