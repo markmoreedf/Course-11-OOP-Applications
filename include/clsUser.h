@@ -10,20 +10,22 @@ class clsUser :public clsPerson
 {
     // clients data written in the file as follows: 
     // username _Delimiter password _Delimiter firstName _Delimiter lastname _Delimiter email _Delimiter phone _Delimiter permissions
+public:
+    static enum enUserPermissions
+    {
+        showClientList = 0b0000001,
+        findClient = 0b0000010,
+        addClient = 0b0000100,
+        updateClient = 0b0001000,
+        deleteClient = 0b0010000,
+        transactions = 0b0100000,
+        manageUsers = 0b1000000
+    };
+
 
 private:
     inline static const string _UsersFileName = "data/Users.txt";
     inline static const string _Delimiter = "#//#";
-    static enum enUserPermissions
-    {
-        showClientList = 0b0000001,
-        findClient     = 0b0000010,
-        addClient      = 0b0000100,
-        updateClient   = 0b0001000,
-        deleteClient   = 0b0010000,
-        transactions   = 0b0100000,
-        manageUsers    = 0b1000000
-    };
 
     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
     enMode _Mode;
@@ -220,52 +222,6 @@ public:
         return _LoadUsersFileToVecObjects();
     }
 
-  /*  static void SetUserPermissions(clsUser& user)
-    {
-        if (MyInputLibrary::ReadYesNo("Do you want to give full acess ? [y/n]"))
-        {
-            user.Permissions = 127;
-        }
-        else {
-            if (MyInputLibrary::ReadYesNo("Give access to View Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::showClientList;
-            else
-                user.Permissions &= ~enUserPermissions::showClientList;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Find Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::findClient;
-            else
-                user.Permissions &= ~enUserPermissions::findClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Add Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::addClient;
-            else
-                user.Permissions &= ~enUserPermissions::addClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Delete Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::deleteClient;
-            else
-                user.Permissions &= ~enUserPermissions::deleteClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Update Clients? [y/n]"))
-                user.Permissions |= enUserPermissions::updateClient;
-            else
-                user.Permissions &= ~enUserPermissions::updateClient;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Transactions? [y/n]"))
-                user.Permissions |= enUserPermissions::transactions;
-            else
-                user.Permissions &= ~enUserPermissions::transactions;
-
-            if (MyInputLibrary::ReadYesNo("Give access to Manage Users? [y/n]"))
-                user.Permissions |= enUserPermissions::manageUsers;
-            else
-                user.Permissions &= ~enUserPermissions::manageUsers;
-
-            user.Save();
-        }
-    }*/
-
     // Non Static Methods:
 
     bool IsEmpty() const { return _Mode == enMode::EmptyMode; }
@@ -330,6 +286,35 @@ public:
         return dlNotFound;
     }
 
-
+    void SetPermission(const enUserPermissions & permission)
+    {
+        switch (permission)
+        {
+            case enUserPermissions::showClientList:
+                this->_Permissions |= enUserPermissions::showClientList;
+                break;
+            case enUserPermissions::findClient:
+                this->_Permissions |= enUserPermissions::findClient;
+                break;
+            case enUserPermissions::addClient:
+                this->_Permissions |= enUserPermissions::addClient;
+                break;
+            case enUserPermissions::updateClient:
+                this->_Permissions |= enUserPermissions::updateClient;
+                break;
+            case enUserPermissions::deleteClient:
+                this->_Permissions |= enUserPermissions::deleteClient;
+                break;
+            case enUserPermissions::transactions:
+                this->_Permissions |= enUserPermissions::transactions;
+                break;
+            case enUserPermissions::manageUsers:
+                this->_Permissions |= enUserPermissions::manageUsers;
+                break;
+             default:
+                 break;
+        }
+        Save();
+    }
 };
 
