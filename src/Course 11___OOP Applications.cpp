@@ -13,7 +13,7 @@ int main()
     while (true)
     {
         clsLoginScreen::ShowLoginScreen();
-        clsMainScreen::ShowMainMenue();
+        clsMainScreen::ShowMainMenue(clsLoginScreen::CurrentUserPermissions);
     }
     return 0;
 }
