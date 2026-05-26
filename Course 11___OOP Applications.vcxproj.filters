@@ -93,6 +93,9 @@
     <ClInclude Include="include\clsLoginScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Course 11___OOP Applications.cpp">

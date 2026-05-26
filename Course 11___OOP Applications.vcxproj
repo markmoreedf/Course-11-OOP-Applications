@@ -154,6 +154,7 @@
     <ClInclude Include="include\clsUserListScreen.h" />
     <ClInclude Include="include\clsUtility.h" />
     <ClInclude Include="include\clsWithdrawScreen.h" />
+    <ClInclude Include="include\Global.h" />
     <ClInclude Include="include\MyInputLibrary.h" />
   </ItemGroup>
   <ItemGroup>

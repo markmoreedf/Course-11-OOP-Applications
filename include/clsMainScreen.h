@@ -12,6 +12,7 @@
 #include "clsTransactionScreen.h" 
 #include "clsManageUsersScreen.h"
 #include "clsLoginScreen.h"
+#include "Global.h"
 
 class clsMainScreen : protected clsScreen
 {
@@ -167,7 +168,7 @@ private:
     }
 
 public:
-    static void ShowMainMenue(clsUser::enUserPermissions UserPermissions)
+    static void ShowMainMenue()
     {
         while (true)
         {
@@ -185,8 +186,9 @@ public:
             clsScreen::Print("=================================\n\n");
 
             enMainMenueOption choice = _ReadMainMenueOption();
-            _PerformMainMenueChoice(choice, clsLoginScreen::CurrentUserPermissions);
+            _PerformMainMenueChoice(choice, static_cast<clsUser::enUserPermissions>(CurrentUser.Permissions));
         }
 
     }
+
 };
