@@ -17,10 +17,10 @@ public:
 
         for (clsUser& user : users) {
 
-            string displayPassword = (user.Username == "admin") ? clsTable::Colors::Red + "********" + clsTable::Colors::Reset : user.Password;
+            string displayPassword = (user.UserName == "admin") ? clsTable::Colors::Red + "********" + clsTable::Colors::Reset : user.Password;
             string displayPermissions = (user.Permissions == 127) ? clsTable::Colors::Green + "Full Access" + clsTable::Colors::Reset : to_string(user.Permissions);
            
-            data.push_back({ user.Username, displayPassword, user.FullName(), user.Email, user.Phone, displayPermissions});
+            data.push_back({ user.UserName, displayPassword, user.FullName(), user.Email, user.Phone, displayPermissions});
         }
 
         clsTable::PrintTable(coloumsNames, widths, data, "\n\n\t\t\t\tNo Users Available In the System!", 5, clsTable::Colors::BrightCyan);

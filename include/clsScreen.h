@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "clsTable.h"
+#include "Global.h"
 
 class clsScreen
 {
@@ -21,6 +22,7 @@ protected:
         }
         std::cout << spaces     << "| === " + title + " === |\n";
         std::cout << spaces;    clsTable::PrintDividerLine(title.length() + 12, shiftRight);
+        std::cout << endl << spaces << "Current User: " << CurrentUser.UserName << " | Date: " << clsDate::DateToString(clsDate::GetCurrentSystemDate()) /* << " | Time: " << clsTime::GetSystemTime()*/ ;
         std::cout << "\n\n";
 
 

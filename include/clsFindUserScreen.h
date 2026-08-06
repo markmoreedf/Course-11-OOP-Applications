@@ -11,7 +11,7 @@ private:
         string permissionsStr = to_string(user.Permissions);
         string passwordStr = user.Password;
 
-        if (user.Username == "admin")
+        if (user.UserName == "admin")
         {
             permissionsStr = "Full Access";
             passwordStr =  "********";
@@ -24,7 +24,7 @@ private:
         clsScreen::Print(" Last Name   : " + user.LastName + "\n");
         clsScreen::Print(" Email       : " + user.Email + "\n");
         clsScreen::Print(" Phone       : " + user.Phone + "\n");
-        clsScreen::Print(" UserName.   : " + user.Username + "\n");
+        clsScreen::Print(" UserName.   : " + user.UserName + "\n");
         clsScreen::Print(" Password    : " + passwordStr + "\n");
         clsScreen::Print(" Permissions : " + permissionsStr + "\n");
         clsScreen::Print("=============================\n\n");

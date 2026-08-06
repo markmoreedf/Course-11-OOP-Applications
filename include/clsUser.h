@@ -145,7 +145,7 @@ private:
         vector<clsUser> vUsers = _LoadUsersFileToVecObjects();
 
         for (clsUser& user : vUsers) {
-            if (user.Username == this->_Username) {
+            if (user.UserName == this->_Username) {
                 user = *this;
                 _SaveVecClientsToFile(vUsers, false);
                 return true;
@@ -175,7 +175,7 @@ public:
     __declspec(property(get = GetPassword, put = SetPassword)) string Password;
 
     string GetUsername() const { return _Username; }
-    __declspec(property(get = GetUsername)) string Username;   // read only property. no setter function. username is unique and should not be changed after creation
+    __declspec(property(get = GetUsername)) string UserName;   // read only property. no setter function. username is unique and should not be changed after creation
 
     void SetPermissions(unsigned int Permissions) { _Permissions = Permissions; }
     unsigned int GetPermissions() const { return _Permissions; }
@@ -190,7 +190,7 @@ public:
     {
         vector<clsUser> vUsers = _LoadUsersFileToVecObjects();
         for (const clsUser& user : vUsers) {
-            if (user.Username == username)
+            if (user.UserName == username)
                 return user;
         }
         return _GetEmptyUserObj();
@@ -274,7 +274,7 @@ public:
         vector <clsUser> vAllUsers = _LoadUsersFileToVecObjects();
 
         for (clsUser& user : vAllUsers) {
-            if (user.Username == this->_Username)
+            if (user.UserName == this->_Username)
             {
                     user.MarkForDelete();
                     _SaveVecClientsToFile(vAllUsers, false);
