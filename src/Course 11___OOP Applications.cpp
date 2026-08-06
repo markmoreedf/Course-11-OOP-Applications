@@ -12,8 +12,11 @@ int main()
 {
     while (true)
     {
+        system("cls");
         clsLoginScreen::ShowLoginScreen();
         clsMainScreen::ShowMainMenue(); 
     }
+
+    
     return 0;
 }

@@ -12,6 +12,8 @@
 #include "clsTransactionScreen.h" 
 #include "clsManageUsersScreen.h"
 #include "clsLoginScreen.h"
+#include "clsUser.h"
+#include "clsLogoutScreen.h"
 #include "Global.h"
 
 class clsMainScreen : protected clsScreen
@@ -80,13 +82,17 @@ private:
         system("cls");
         clsLoginScreen::ShowLoginScreen();
     }
+    static void _LogoutScreen()
+    {
+        clsLogoutScreen::Logout();
+    }
 
-    static void _PerformMainMenueChoice(enMainMenueOption choice, clsUser::enUserPermissions UserPermissions)
+    static void _PerformMainMenueChoice(enMainMenueOption choice)
     {
         switch (choice)
         {
         case eShowClientsList:
-            if (!(UserPermissions & clsUser::enUserPermissions::showClientList))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::showClientList))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -96,7 +102,7 @@ private:
             break;
 
         case eFindClient:
-            if (!(UserPermissions & clsUser::enUserPermissions::findClient))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::findClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -106,7 +112,7 @@ private:
             break;
 
         case eAddNewClient:
-            if (!(UserPermissions & clsUser::enUserPermissions::addClient))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::addClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -116,7 +122,7 @@ private:
             break;
 
         case eUpdateClientData:
-            if (!(UserPermissions & clsUser::enUserPermissions::updateClient))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::updateClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -126,7 +132,7 @@ private:
             break;
 
         case eDeleteClient:
-            if (!(UserPermissions & clsUser::enUserPermissions::deleteClient))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::deleteClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -136,7 +142,7 @@ private:
             break;
 
         case eTransactionsMenue:
-            if (!(UserPermissions & clsUser::enUserPermissions::transactions))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::transactions))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -146,7 +152,7 @@ private:
             break;
 
         case eManageUsersMenue:
-            if (!(UserPermissions & clsUser::enUserPermissions::manageUsers))
+            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::manageUsers))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -155,7 +161,7 @@ private:
             _ManageUsersScreen();           
             break;
         case eLogout:
-            _LoginScreen();
+            _LogoutScreen();
 
             return;
         default:
@@ -164,13 +170,14 @@ private:
         }
         
         _ReturnToMainMenue();
-
+      
     }
 
 public:
     static void ShowMainMenue()
     {
-        while (true)
+        enMainMenueOption choice{};
+        while (choice != enMainMenueOption::eLogout)
         {
             system("cls");
             _PrintHeader("Main Screen", 5);
@@ -185,8 +192,8 @@ public:
             clsScreen::Print(" [8] Logout.\n");
             clsScreen::Print("=================================\n\n");
 
-            enMainMenueOption choice = _ReadMainMenueOption();
-            _PerformMainMenueChoice(choice, static_cast<clsUser::enUserPermissions>(CurrentUser.Permissions));
+            choice = _ReadMainMenueOption();
+            _PerformMainMenueChoice(choice);
         }
 
     }
