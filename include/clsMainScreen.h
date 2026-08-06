@@ -92,7 +92,7 @@ private:
         switch (choice)
         {
         case eShowClientsList:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::showClientList))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::showClientList))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -102,7 +102,7 @@ private:
             break;
 
         case eFindClient:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::findClient))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::findClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -112,7 +112,7 @@ private:
             break;
 
         case eAddNewClient:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::addClient))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::addClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -122,7 +122,7 @@ private:
             break;
 
         case eUpdateClientData:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::updateClient))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::updateClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -132,7 +132,7 @@ private:
             break;
 
         case eDeleteClient:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::deleteClient))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::deleteClient))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -142,7 +142,7 @@ private:
             break;
 
         case eTransactionsMenue:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::transactions))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::transactions))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
@@ -152,7 +152,7 @@ private:
             break;
 
         case eManageUsersMenue:
-            if (!(CurrentUser.Permissions & clsUser::enUserPermissions::manageUsers))
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::manageUsers))
             {
                 clsScreen::Print("\n");
                 clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");

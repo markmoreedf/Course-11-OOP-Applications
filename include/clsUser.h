@@ -316,5 +316,10 @@ public:
         }
         Save();
     }
+
+    bool HasPermission(const enUserPermissions & permission) const
+    {
+        return (this->_Permissions & permission) != 0;
+    }
 };
 
