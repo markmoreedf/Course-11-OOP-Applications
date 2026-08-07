@@ -14,15 +14,20 @@ The goal of this project is to manage bank clients and users through a console i
 * **Add New Client:** Form-based entry for adding new records. ➕
 * **Update Client:** Modify existing client details using their Account Number. ✏️
 * **Find Client:** Search for specific clients quickly. 🔍
+* **Delete Client:** Securely remove records from the system. 🗑️
 * **Object-Oriented Design:** * `clsPerson`: Base class for personal data.
     * `clsBankClient`: Derived class for banking-specific logic.
-* **Delete Client:** Securely remove records from the system. 🗑️
 * **Transactions Menu:**
     * Deposit & Withdraw logic. 💰
     * Total Balances view.
+* **User Management:** Login system with different permissions/access levels. 🔑
+   * **User List**
+   * **Add New User**
+   * **Update User**
+   * **Find User**
+   * **Delete User**
 
 ### ⏳ Coming Soon (Roadmap)
-* **User Management:** Login system with different permissions/access levels. 🔑
 * **Login Register:** Logging every login attempt to a file. 📝
 * **Currency Exchange:** A specialized system for handling multiple currencies. 🌍
 
