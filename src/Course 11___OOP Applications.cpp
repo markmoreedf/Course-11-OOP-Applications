@@ -13,7 +13,9 @@ int main()
     while (true)
     {
         system("cls");
-        clsLoginScreen::ShowLoginScreen();
+        if(!clsLoginScreen::ShowLoginScreen())
+            break;
+
         clsMainScreen::ShowMainMenue(); 
     }
 
