@@ -6,6 +6,7 @@
 class clsLoginScreen :  protected clsScreen
 {
 private:
+
     static bool _PerformLoginScreen()
     {
         string username = "";
@@ -38,6 +39,8 @@ private:
             }
 
         } while (loginFail);
+
+        CurrentUser.RegisterLogin();
         return true;
     }
 public:
