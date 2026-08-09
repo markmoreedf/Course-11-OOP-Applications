@@ -11,6 +11,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsTransactionScreen.h" 
 #include "clsManageUsersScreen.h"
+#include "clsLoginRegisterScreen.h"
 #include "clsLoginScreen.h"
 #include "clsUser.h"
 #include "clsLogoutScreen.h"
@@ -28,7 +29,8 @@ private:
         eDeleteClient = 5,
         eTransactionsMenue = 6,
         eManageUsersMenue = 7,
-        eLogout = 8
+        eShowLoginHistory = 8,
+        eLogout = 9
     };
 
     static enMainMenueOption _ReadMainMenueOption()
@@ -76,7 +78,11 @@ private:
         system("cls");
         clsManageUsersScreen::ShowManageUsersScreen();
     }
-
+    static void _ShowLoginHistoryScreen()
+    {
+        system("cls");
+        clsLoginRegisterScreen::ShowLoginRegisterScreen();
+    }
     static void _LoginScreen()
     {
         system("cls");
@@ -160,6 +166,15 @@ private:
             }
             _ManageUsersScreen();           
             break;
+        case eShowLoginHistory:
+            if (! CurrentUser.HasPermission(clsUser::enUserPermissions::showLoginHistory))
+            {
+                clsScreen::Print("\n");
+                clsScreen::Print("<<< You Don't Have Permission To Do That. >>>");
+                break;
+            }
+            _ShowLoginHistoryScreen();
+            break;
         case eLogout:
             _LogoutScreen();
 
@@ -189,7 +204,8 @@ public:
             clsScreen::Print(" [5] Delete Client.\n");
             clsScreen::Print(" [6] Transactions Menue.\n");
             clsScreen::Print(" [7] Manage Useres Menue\n");
-            clsScreen::Print(" [8] Logout.\n");
+            clsScreen::Print(" [8] Show Login History\n");
+            clsScreen::Print(" [9] Logout.\n");
             clsScreen::Print("=================================\n\n");
 
             choice = _ReadMainMenueOption();

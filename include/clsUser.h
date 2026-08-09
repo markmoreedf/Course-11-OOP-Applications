@@ -13,28 +13,31 @@ class clsUser :public clsPerson
 public:
     static enum enUserPermissions
     {
-        showClientList = 0b0000001,
-        findClient = 0b0000010,
-        addClient = 0b0000100,
-        updateClient = 0b0001000,
-        deleteClient = 0b0010000,
-        transactions = 0b0100000,
-        manageUsers = 0b1000000
+        showClientList = 0b0000000001,
+        findClient = 0b0000000010,
+        addClient = 0b0000000100,
+        updateClient = 0b0000001000,
+        deleteClient = 0b0000010000,
+        transactions = 0b0000100000,
+        manageUsers = 0b0001000000,
+        showLoginHistory = 0b0010000000,
+        fullAccess = 0b0011111111
     };
-
+   
 
 private:
-    inline static const string _UsersFileName = "data/Users.txt";
+    inline static const string _UsersDataFileName = "data/UsersData.txt";
+    inline static const string _UsersLoginRegister = "data/LoginRegister.txt";
     inline static const string _Delimiter = "#//#";
 
     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
     enMode _Mode;
     string _Username;
     string _Password;
-    unsigned int _Permissions;
+    int _Permissions;
     bool _MarkForDelete = 0;
 
-    static vector<string>  _LoadFileDataToVecString(const string& dataFileName)
+    static vector<string>  _LoadFileDataToVecString(const string& dataFileName, short dataSize = 7)
     {
         vector<string> vUsers;
         string dataLine = "";
@@ -50,7 +53,7 @@ private:
                     continue;
 
                 // validate data line
-                if (clsString::Split(dataLine, _Delimiter).size() != 7)
+                if (clsString::Split(dataLine, _Delimiter).size() != dataSize)
                     continue; // skip invalid data lines
 
                 vUsers.push_back(dataLine);
@@ -110,7 +113,7 @@ private:
     }
     static vector<clsUser> _LoadUsersFileToVecObjects()
     {
-        vector<string> dataLines = _LoadFileDataToVecString(_UsersFileName);
+        vector<string> dataLines = _LoadFileDataToVecString(_UsersDataFileName);
 
         vector<clsUser> vUsers;
 
@@ -123,9 +126,9 @@ private:
     {
         ofstream dataFile;
         if (appendMode)
-            dataFile.open(_UsersFileName, ios::out | ios::app); // keep the old data and append new data
+            dataFile.open(_UsersDataFileName, ios::out | ios::app); // keep the old data and append new data
         else
-            dataFile.open(_UsersFileName, ios::trunc); // overwrite the file
+            dataFile.open(_UsersDataFileName, ios::trunc); // overwrite the file
         if (dataFile.is_open())
         {
             for (const clsUser& user : vUsers) {
@@ -155,7 +158,7 @@ private:
     }
     void _AddNew() const
     {
-        _SaveDataLineToFile(_ConvertUserObjectToLine(*this), _UsersFileName, true);
+        _SaveDataLineToFile(_ConvertUserObjectToLine(*this), _UsersDataFileName, true);
     }
 
 
@@ -311,6 +314,9 @@ public:
             case enUserPermissions::manageUsers:
                 this->_Permissions |= enUserPermissions::manageUsers;
                 break;
+            case enUserPermissions::showLoginHistory:
+                this->_Permissions |= enUserPermissions::showLoginHistory;
+                break;
              default:
                  break;
         }
@@ -320,6 +326,28 @@ public:
     bool HasPermission(const enUserPermissions & permission) const
     {
         return (this->_Permissions & permission) != 0;
+    }
+
+    void RegisterLogin() const
+    {
+        string lineOfData = 
+        clsDate::GetCurrentDateTimeString() + _Delimiter
+        + this->_Username + _Delimiter 
+        + this->Password + _Delimiter
+        + to_string(this->Permissions);
+
+        _SaveDataLineToFile(lineOfData, _UsersLoginRegister, true);
+    }
+
+    static vector<vector<string>> GetLoginRegistery()
+    {
+        vector <vector<string>> loginRegistery;
+        vector<string> loginRegisteryData = _LoadFileDataToVecString(_UsersLoginRegister, 4);
+        for (string& line : loginRegisteryData)
+        {
+            loginRegistery.push_back(clsString::Split(line, _Delimiter));
+        }
+        return loginRegistery;
     }
 };
 
