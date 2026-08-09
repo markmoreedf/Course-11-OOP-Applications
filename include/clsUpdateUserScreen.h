@@ -32,7 +32,7 @@ private:
 
         if (MyInputLibrary::ReadYesNo("Do you want to give full access ? [y/n]\t"))
         {
-            user.Permissions = 127;
+            user.Permissions = clsUser::enUserPermissions::fullAccess;
         }
         else {
             clsScreen::Print("");
@@ -76,6 +76,11 @@ private:
                 user.Permissions |= clsUser::enUserPermissions::manageUsers;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::manageUsers;
+            clsScreen::Print("");
+            if (MyInputLibrary::ReadYesNo("Give access to Show Login History? [y/n]\t"))
+                user.Permissions |= clsUser::enUserPermissions::showLoginHistory;
+            else
+                user.Permissions &= ~clsUser::enUserPermissions::showLoginHistory;
         }
     }
     static void _ReadUserData(clsUser& user)
