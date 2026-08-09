@@ -242,6 +242,15 @@ public:
         this->_year = now.tm_year + 1900;
     }
 
+    static string GetCurrentDateTimeString()
+    {
+        time_t t = time(0);   // get time now
+        struct tm now;
+        localtime_s(&now, &t);
+        string dateTimeString = to_string(now.tm_mday) + "/" + to_string(now.tm_mon + 1) + "/" + to_string(now.tm_year + 1900)
+            + " - " + to_string(now.tm_hour) + ":" + to_string(now.tm_min) + ":" + to_string(now.tm_sec);
+        return dateTimeString;
+    }
 
     static void PrintDate(const short& day, const short& month, const int& year)
     {
