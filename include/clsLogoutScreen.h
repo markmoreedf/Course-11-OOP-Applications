@@ -13,8 +13,8 @@ private:
     {
         clsScreen::Print("\n\n");
         clsScreen::Print("Are you sure you want to logout? [y/n]: ");
-        char choice = MyInputLibrary::ReadChar("");
-        if (choice == 'y' || choice == 'Y')
+        bool choice = MyInputLibrary::ReadYesNo("");
+        if (choice)
         {
             CurrentUser = clsUser::FindUser("", "");
             clsScreen::Print("\n\n");

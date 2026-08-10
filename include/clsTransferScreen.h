@@ -32,7 +32,8 @@ private:
 
             while (senderClient.IsEmpty())
             {
-                clsScreen::Print("\n<<< Sender Account Not Found. >>>\n");
+                clsScreen::Print("\n");
+                clsScreen::Print("<<< Sender Account Not Found. >>>\n");
                 clsScreen::Print("Press any key to try again...\n\n");
                 system("pause>0");
 
@@ -66,11 +67,13 @@ private:
             {
                 if (receiverClient.IsEmpty())
                 {
-                    clsScreen::Print("\n<<< Receiver Account Not Found. >>>\n");
+                    clsScreen::Print("\n");
+                    clsScreen::Print("<<< Receiver Account Not Found. >>>\n");
                 }
                 else
                 {
-                    clsScreen::Print("\n<<< You cannot transfer to the same account! >>>\n");
+                    clsScreen::Print("\n");
+                    clsScreen::Print("<<< You cannot transfer to the same account! >>>\n");
                 }
 
                 clsScreen::Print("Press any key to try again...\n\n");
@@ -98,31 +101,38 @@ private:
         clsBankClient senderClient = _PrepreSender();
         clsBankClient receiverClient = _PrepareReciever(senderClient.AccountNumber);
 
-        clsScreen::Print("\n");     clsScreen::Print("");
-        double amount = MyInputLibrary::ReadDouble("Enter Amount to Transfer: ");
-        bool confirmAmount = false;
-        while (!confirmAmount)
+        double amount = 0;
+
+        while (true)
         {
-            while (amount > senderClient.Balance)
+            bool confirmAmount = false;
+            while (!confirmAmount)
             {
                 clsScreen::Print("\n");
-                clsScreen::Print("<<<Amount Exceeds Sender's Balance. >>>\n");
-                clsScreen::Print("Press any key to try again...");
-                system("pause>0");
-                clsScreen::Print("\n");     clsScreen::Print("");
-                amount = MyInputLibrary::ReadPositiveDouble("Enter Amount to Transfer: ");
+                clsScreen::Print("Enter Amount to Transfer: ");
+                amount = MyInputLibrary::ReadDouble("");
+                clsScreen::Print("");
+                confirmAmount = MyInputLibrary::ReadYesNo("Are you sure you want to transfer "
+                    + to_string(amount) + "$ from " + senderClient.FullName() + " to "
+                    + receiverClient.FullName() + "? (Y/N): ");
             }
-            confirmAmount = MyInputLibrary::ReadYesNo("Are you sure you want to transfer " 
-                            + to_string(amount) + "$ from " + senderClient.FullName() + " to " 
-                            + receiverClient.FullName() + "? (Y/N): ");
+
+            clsBankClient::enTransferResults transferResult = senderClient.Transfer(amount, receiverClient);
+
+            if (transferResult == clsBankClient::enTransferResults::trSucceeded)
+                break;
+
+            else if (transferResult == clsBankClient::enTransferResults::trFailedInsufficientFunds)
+                clsScreen::Print("\n<<< Insufficient Funds. >>>\n");
+            
+            else if (transferResult == clsBankClient::enTransferResults::trFailedDepositError)
+                clsScreen::Print("\n<<< Deposit Error. >>>\n");
+
         }
 
-        senderClient.Withdraw(amount);
-        senderClient.Save();
-        receiverClient.Deposit(amount);
-        receiverClient.Save();
-        clsScreen::Print("\n");
-        clsScreen::Print("<<< Transfer Successful. >>>\n");
+        clsScreen::Print("\n");        clsScreen::Print("<<< Transfer Successful. >>>\n");
+        _PrintClientCard(senderClient);
+        _PrintClientCard(receiverClient);
     }
 
 
@@ -132,7 +142,6 @@ public:
         clsScreen::_PrintHeader("Transfer Screen");
         clsTransferScreen transferScreen;
         transferScreen._PerformTransferScreen();
-        clsScreen::_PauseScreen();
     }
 };
 

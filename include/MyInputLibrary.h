@@ -83,7 +83,7 @@ namespace MyInputLibrary
         return number;
     }
 
-    static int ReadChar(const string& msg = "Enter a character: ")
+    static char ReadChar(const string& msg = "Enter a character: ")
     {
         char c;
         bool validInput = false;

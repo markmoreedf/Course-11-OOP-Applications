@@ -306,4 +306,21 @@ private:
             return false;
         }
 
+        enum enTransferResults { trFailedInsufficientFunds = 0, trFailedDepositError = 1, trSucceeded = 2 };
+        enTransferResults Transfer(double amount, clsBankClient& receiver)
+        {
+            if (this->Withdraw(amount))
+            {
+                if (receiver.Deposit(amount))
+                    return trSucceeded;
+                else
+                {
+                    // rollback the withdrawal if deposit fails
+                    this->Deposit(amount);
+                    return trFailedDepositError;
+                }
+            }
+            return trFailedInsufficientFunds;
+        }
+
 };
