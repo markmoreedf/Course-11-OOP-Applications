@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\markp\OneDrive\Desktop\clsTable.h" />
     <ClInclude Include="include\clsAddNewClientScreen.h" />
     <ClInclude Include="include\clsAddNewUserScreen.h" />
     <ClInclude Include="include\clsBankClient.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="include\clsDepositScreen.h" />
     <ClInclude Include="include\clsFindClientScreen.h" />
     <ClInclude Include="include\clsFindUserScreen.h" />
+    <ClInclude Include="include\clsLoginRegisterScreen.h" />
     <ClInclude Include="include\clsLoginScreen.h" />
     <ClInclude Include="include\clsLogoutScreen.h" />
     <ClInclude Include="include\clsMainScreen.h" />
@@ -146,9 +148,9 @@
     <ClInclude Include="include\clsPerson.h" />
     <ClInclude Include="include\clsScreen.h" />
     <ClInclude Include="include\clsString.h" />
-    <ClInclude Include="include\clsTable.h" />
     <ClInclude Include="include\clsTotalBalancesScreen.h" />
     <ClInclude Include="include\clsTransactionScreen.h" />
+    <ClInclude Include="include\clsTransferScreen.h" />
     <ClInclude Include="include\clsUpdateClientScreen.h" />
     <ClInclude Include="include\clsUpdateUserScreen.h" />
     <ClInclude Include="include\clsUser.h" />

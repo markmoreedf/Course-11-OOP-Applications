@@ -32,7 +32,7 @@ public:
             return;
         }
 
-        if (client.Deposite(amount))
+        if (client.Deposit(amount))
         {
             clsScreen::Print("\n");
             clsScreen::Print("Amount deposited successfully.\n");

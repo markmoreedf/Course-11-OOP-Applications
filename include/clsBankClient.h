@@ -281,7 +281,7 @@ private:
 
         
         // return true or flase for now. later we can make an enum for more detailed info
-        bool Deposite(double amount)
+        bool Deposit(double amount)
         {
             if( amount <= 0 )
                 return false;
