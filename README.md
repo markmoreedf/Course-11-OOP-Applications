@@ -20,15 +20,16 @@ The goal of this project is to manage bank clients and users through a console i
 * **Transactions Menu:**
     * Deposit & Withdraw logic. 💰
     * Total Balances view.
+    * Transfer Money between accounts
 * **User Management:** Login system with different permissions/access levels. 🔑
    * **User List**
    * **Add New User**
    * **Update User**
    * **Find User**
    * **Delete User**
+* **Login Register:** Logging every login attempt to a file. 📝
 
 ### ⏳ Coming Soon (Roadmap)
-* **Login Register:** Logging every login attempt to a file. 📝
 * **Currency Exchange:** A specialized system for handling multiple currencies. 🌍
 
 ---
