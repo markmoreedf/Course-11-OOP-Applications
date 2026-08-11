@@ -17,13 +17,6 @@ private:
         eMainMenue = 5
     };
 
-    static void _ReturnToTransactionMenue()
-    {
-        clsScreen::Print("\n\n");
-        clsScreen::_PauseScreen();
-        clsTransactionScreen::ShowTransactionMenue();
-    }
-
     static void _DepositScreen()
     {
         system("cls");
@@ -47,7 +40,7 @@ private:
 
     static enTransactionMenueOption _ReadTransactionMenueOption()
     {
-        clsScreen::Print("\n"); clsScreen::Print("");
+        Print("\n"); Print("");
         return (enTransactionMenueOption)MyInputLibrary::ReadNumberBetween(1, 5, "Choose what do you want to do? [1-5]: ");
     }
 
@@ -70,25 +63,34 @@ private:
         case eMainMenue:
             return; // Exit to main menue, without calling clsMainScreen::ShowMainMenue(). recursion avoidance
         default:
-            clsScreen::Print("Invalid choice. Please try again.\n");
+            Print("Invalid choice. Please try again.\n");
+            _PauseScreen();
             break;
         }
-        _ReturnToTransactionMenue();
+        Print("\n\n");
+        _PauseScreen("Press any key to go back");
     }
 
 public:
     static void ShowTransactionMenue()
     {
-        system("cls");
-        clsScreen::_PrintHeader("Transactions Menue",2);
-        clsScreen::Print("===============================\n");
-        clsScreen::Print(" [1] Deposit.\n");
-        clsScreen::Print(" [2] Withdraw.\n");
-        clsScreen::Print(" [3] Show All Balances.\n");
-        clsScreen::Print(" [4] Transfer.\n");
-        clsScreen::Print(" [5] Return to Main Menue.\n");
-        clsScreen::Print("===============================\n");
-        _PerformTransactionMenueChoice(_ReadTransactionMenueOption());
+        enTransactionMenueOption transactionMenueChoice = enTransactionMenueOption::eDeposit; // Initialize with a default value to enter the loop
+        while (transactionMenueChoice != eMainMenue)
+        {
+            system("cls");
+            _PrintHeader("Transactions Menue",2);
+            Print("===============================\n");
+            Print(" [1] Deposit.\n");
+            Print(" [2] Withdraw.\n");
+            Print(" [3] Show All Balances.\n");
+            Print(" [4] Transfer.\n");
+            Print(" [5] Return to Main Menue.\n");
+            Print("===============================\n");
+            transactionMenueChoice = _ReadTransactionMenueOption();
+            _PerformTransactionMenueChoice(transactionMenueChoice);
+
+        }
+
     }
 
 };
