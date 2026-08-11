@@ -13,7 +13,7 @@ public:
         float totalBalances = clsBankClient::GetTotalBalances();
         vector <clsBankClient> clients = clsBankClient::GetClientsList();
         vector<vector<string>> data;
-        clsScreen::_PrintHeader("Total Balances Screen. [" + to_string(clients.size()) + "] clients found");
+        _PrintHeader("Total Balances Screen. [" + to_string(clients.size()) + "] clients found");
 
         vector<string> coloumsNames = { "Account No.", "Full Name", "Balance" };
         const vector<int>widths = { 20, 30, 25 };

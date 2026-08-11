@@ -114,11 +114,11 @@
     <ClInclude Include="C:\Users\markp\OneDrive\Desktop\clsTable.h">
       <Filter>Header Files\Libraries</Filter>
     </ClInclude>
-    <ClInclude Include="include\clsLoginRegisterScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\clsTransferScreen.h">
       <Filter>Header Files\Screens\Client Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsLoginRegisterScreen.h">
+      <Filter>Header Files\Screens\User Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

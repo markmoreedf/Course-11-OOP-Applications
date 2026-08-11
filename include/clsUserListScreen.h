@@ -9,7 +9,7 @@ public:
     {
         vector <clsUser> users = clsUser::GetUsersList();
         vector<vector<string>> data;
-        clsScreen::_PrintHeader("Users List. [" + to_string(users.size()) + "] found", 15);
+        _PrintHeader("Users List. [" + to_string(users.size()) + "] found", 15);
 
         vector<string> coloumsNames = { "UserName", "Password", "Full Name", "E-mail", "Phone No", "Permissions" };
         const vector<int> widths = { 20, 15, 25, 25, 15, 15 };

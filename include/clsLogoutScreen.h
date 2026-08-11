@@ -7,25 +7,19 @@
 
 class clsLogoutScreen : protected clsScreen
 {
-
-private:
-    static void _PerformLogoutScreen()
+public:
+    static bool Logout()
     {
-        clsScreen::Print("\n\n");
-        clsScreen::Print("Are you sure you want to logout? [y/n]: ");
+        Print("\n\n");
+        Print("Are you sure you want to logout? [y/n]: ");
         bool choice = MyInputLibrary::ReadYesNo("");
         if (choice)
         {
             CurrentUser = clsUser::FindUser("", "");
-            clsScreen::Print("\n\n");
-            clsScreen::Print("<<< You have been logged out successfully. >>>\n\n");
-            clsScreen::_PauseScreen();
+            Print("\n\n");
+            _PauseScreen("<<< You have been logged out successfully. >>>\n\n");
+            return true;
         }
-    }
-
-public:
-    static void Logout()
-    {
-        _PerformLogoutScreen();
+        return false;
     }
 };

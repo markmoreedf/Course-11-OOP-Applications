@@ -10,6 +10,9 @@ class clsBankClient : public clsPerson
 {
     // clients data written in the file as follows: 
     // firstName _Delimiter lastname _Delimiter email _Delimiter phone _Delimiter accountnumber _Delimiter pincode _Delimiter balance
+     
+    // transfers data written in the file as follows:
+    // date & time _Delimiter fromAccountNumber _Delimiter fromFullName _Delimiter toAccountNumber _Delimiter toFullName _Delimiter amount
 
 private:
     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
@@ -20,12 +23,13 @@ private:
     bool _MarkForDelete = false;
 
     // should be c++ 17 or later to support inline static members
-    // otherwise define them in the cpp file
+    // otherwise we must define them in the cpp file
     
     inline static const string _ClientsFileName = "data/Clients.txt";
+    inline static const string _TransferRegister = "data/TransferRegister.txt";
     inline static const string _Delimiter = "#//#";
 
-    static vector<string>  _LoadFileDataToVecString(const string& dataFileName)
+    static vector<string>  _LoadFileDataToVecString(const string& dataFileName, short dataSize = 7)
     {
         vector<string> clients;
         string dataLine = "";
@@ -38,10 +42,10 @@ private:
             {
                 // never trust external data:    Files,    User input,    Network,    Sensors,    Even our own previous versions
                 if (dataLine.empty())
-                    continue; // skip empty lines. a data file after all
+                    continue;
 
                 // validate data line
-                if (clsString::Split(dataLine, _Delimiter).size() != 7)
+                if (clsString::Split(dataLine, _Delimiter).size() != dataSize)
                     continue; // skip invalid data lines
 
                 clients.push_back(dataLine);
@@ -322,5 +326,53 @@ private:
             }
             return trFailedInsufficientFunds;
         }
+
+        void RegisterTransfer(const string& receiverAccountNumber, double amount) const
+        {
+            string lineOfData =
+            clsDate::GetCurrentDateTimeString() + _Delimiter
+            + this->AccountNumber + _Delimiter
+            + this->FullName() + _Delimiter
+            + receiverAccountNumber + _Delimiter
+            + clsBankClient::FindClient(receiverAccountNumber).FullName() + _Delimiter
+            + to_string(amount);
+
+            _SaveDataLineToFile(lineOfData, _TransferRegister, true);
+            
+        }
+
+
+        static vector<vector<string>> GetAllTransferRegistery()
+        {
+            vector <vector<string>> transferRegistery;
+            vector<string> transfetRegisteryData = _LoadFileDataToVecString(_TransferRegister, 6);
+
+            for (const string& line : transfetRegisteryData)
+            {
+                vector<string> vTransferData = clsString::Split(line, _Delimiter);
+                transferRegistery.push_back(vTransferData);
+            }
+
+            return transferRegistery;
+        }
+
+        vector<vector<string>> GetClientTransferRegistery() const
+        {
+            vector <vector<string>> transferRegistery;
+            vector<string> transfetRegisteryData = _LoadFileDataToVecString(_TransferRegister, 6);
+
+            for (const string& line : transfetRegisteryData) {
+                vector<string> vTransferData = clsString::Split(line, _Delimiter);
+  
+                if (vTransferData[1] == this->AccountNumber || vTransferData[3] == this->AccountNumber)
+                    transferRegistery.push_back(vTransferData);
+            }
+            return transferRegistery;
+
+        }
+
+
+
+
 
 };

@@ -21,12 +21,6 @@ private:
         eMainMenue = 6
     };
 
-    static void _ReturnToManageUsersMenue()
-    {
-        clsScreen::Print("\n\n");
-        clsScreen::_PauseScreen();
-        ShowManageUsersScreen();
-    }
     static void _PerformManageUsersMenueOption(enMngUsersMenueOption choice)
     {
         switch (choice) {
@@ -53,27 +47,33 @@ private:
             case eMainMenue:
                 return;
              default:
-                clsScreen::Print("Invalid choice. Please try again.\n");
+                Print("Invalid choice. Please try again.\n");
                 break;
         }
-        _ReturnToManageUsersMenue();
+        Print("\n\n");
+        _PauseScreen("Press any key to return to the Manage Users Menu...");
     }
 
 public:
     static void ShowManageUsersScreen()
     {
-        system("cls");
-        _PrintHeader("Manage Users Screen", 5);
-        clsScreen::Print("=================================\n");
-        clsScreen::Print(" [1] Show Users List.\n");
-        clsScreen::Print(" [2] Find User.\n");
-        clsScreen::Print(" [3] Add New User.\n");
-        clsScreen::Print(" [4] Update User Data.\n");
-        clsScreen::Print(" [5] Delete User.\n");
-        clsScreen::Print(" [6] Main Menue.\n");
-        clsScreen::Print("=================================\n");
-        clsScreen::Print("\n"); clsScreen::Print("");
-        _PerformManageUsersMenueOption ((enMngUsersMenueOption)MyInputLibrary::ReadNumberBetween(1, 6, "Choose what do you want to do? [1-6]: "));
+        enMngUsersMenueOption choice = enMngUsersMenueOption::eAddNewUser; // Initialize with a default value to enter the loop
+        while (choice != eMainMenue)
+        {
+            system("cls");
+            _PrintHeader("Manage Users Screen", 5);
+            Print("=================================\n");
+            Print(" [1] Show Users List.\n");
+            Print(" [2] Find User.\n");
+            Print(" [3] Add New User.\n");
+            Print(" [4] Update User Data.\n");
+            Print(" [5] Delete User.\n");
+            Print(" [6] Main Menue.\n");
+            Print("=================================\n");
+            Print("\n"); Print("");
+            choice = (enMngUsersMenueOption)MyInputLibrary::ReadNumberBetween(1, 6, "Choose what do you want to do? [1-6]: ");
+            _PerformManageUsersMenueOption(choice);
+        }
 
     }
 

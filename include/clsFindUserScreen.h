@@ -17,29 +17,29 @@ private:
             passwordStr =  "********";
         }
 
-        clsScreen::Print("\n");
-        clsScreen::Print("        User Card\n");
-        clsScreen::Print("=============================\n");
-        clsScreen::Print(" First Name  : " + user.FirstName + "\n");
-        clsScreen::Print(" Last Name   : " + user.LastName + "\n");
-        clsScreen::Print(" Email       : " + user.Email + "\n");
-        clsScreen::Print(" Phone       : " + user.Phone + "\n");
-        clsScreen::Print(" UserName.   : " + user.UserName + "\n");
-        clsScreen::Print(" Password    : " + passwordStr + "\n");
-        clsScreen::Print(" Permissions : " + permissionsStr + "\n");
-        clsScreen::Print("=============================\n\n");
+        Print("\n");
+        Print("        User Card\n");
+        Print("=============================\n");
+        Print(" First Name  : " + user.FirstName + "\n");
+        Print(" Last Name   : " + user.LastName + "\n");
+        Print(" Email       : " + user.Email + "\n");
+        Print(" Phone       : " + user.Phone + "\n");
+        Print(" UserName.   : " + user.UserName + "\n");
+        Print(" Password    : " + passwordStr + "\n");
+        Print(" Permissions : " + permissionsStr + "\n");
+        Print("=============================\n\n");
     }
 
 public:
 
     static void ShowFindUserScreen()
     {
-        clsScreen::_PrintHeader("Find User Screen", 5);
-        clsScreen::Print(""); std::string username = MyInputLibrary::ReadLine("Enter Username: ");
+        _PrintHeader("Find User Screen", 5);
+        Print(""); std::string username = MyInputLibrary::ReadLine("Enter Username: ");
         clsUser user = clsUser::FindUser(username);
         while (user.IsEmpty()) {
-            clsScreen::Print("User with Useruame " + username + " not found.\n");
-            clsScreen::Print("");
+            Print("User with Useruame " + username + " not found.\n");
+            Print("");
             username = MyInputLibrary::ReadLine("Enter a Valid Username: ");
             user = clsUser::FindUser(username);
         }

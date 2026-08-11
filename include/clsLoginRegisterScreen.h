@@ -6,15 +6,13 @@ class clsLoginRegisterScreen :
     protected clsScreen
 {
 
-
-
 public:
     static void ShowLoginRegisterScreen()
     {
         _PrintHeader("Login/Register Screen");
         vector <vector<string>> loginRegistery = clsUser::GetLoginRegistery();
         vector<vector<string>> data;
-        clsScreen::_PrintHeader("Login Registery List. [" + to_string(loginRegistery.size()) + "] found", 15);
+        _PrintHeader("Login Registery List. [" + to_string(loginRegistery.size()) + "] found", 15);
 
         vector<string> coloumsNames = { "Login Time",  "UserName", "Password", "Permissions" };
         const vector<int> widths = { 25,25, 25, 25 };
