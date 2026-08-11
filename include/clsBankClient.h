@@ -5,6 +5,7 @@
 #include <fstream>
 #include "clsPerson.h"
 #include "clsString.h"
+#include "Global.h"
 
 class clsBankClient : public clsPerson
 {
@@ -12,7 +13,7 @@ class clsBankClient : public clsPerson
     // firstName _Delimiter lastname _Delimiter email _Delimiter phone _Delimiter accountnumber _Delimiter pincode _Delimiter balance
      
     // transfers data written in the file as follows:
-    // date & time _Delimiter fromAccountNumber _Delimiter fromFullName _Delimiter toAccountNumber _Delimiter toFullName _Delimiter amount
+    // date & time _Delimiter senderAccNo _Delimiter receiverAccNo _Delimiter  amount + _Delimiter + senderBalance + _Delimiter + receiverBalance + _Delimiter + CurrentUserName
 
 private:
     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
@@ -330,22 +331,22 @@ private:
         void RegisterTransfer(const string& receiverAccountNumber, double amount) const
         {
             string lineOfData =
-            clsDate::GetCurrentDateTimeString() + _Delimiter
-            + this->AccountNumber + _Delimiter
-            + this->FullName() + _Delimiter
-            + receiverAccountNumber + _Delimiter
-            + clsBankClient::FindClient(receiverAccountNumber).FullName() + _Delimiter
-            + to_string(amount);
+                clsDate::GetCurrentDateTimeString() + _Delimiter
+                + this->AccountNumber + _Delimiter
+                + receiverAccountNumber + _Delimiter
+                + to_string(amount) + _Delimiter
+                + std::to_string(this->Balance) + _Delimiter
+                + std::to_string(FindClient(receiverAccountNumber).Balance) + _Delimiter
+                + CurrentUser.UserName;
 
-            _SaveDataLineToFile(lineOfData, _TransferRegister, true);
-            
+            _SaveDataLineToFile(lineOfData, _TransferRegister, true); 
         }
 
 
         static vector<vector<string>> GetAllTransferRegistery()
         {
             vector <vector<string>> transferRegistery;
-            vector<string> transfetRegisteryData = _LoadFileDataToVecString(_TransferRegister, 6);
+            vector<string> transfetRegisteryData = _LoadFileDataToVecString(_TransferRegister, 7);
 
             for (const string& line : transfetRegisteryData)
             {
@@ -359,12 +360,12 @@ private:
         vector<vector<string>> GetClientTransferRegistery() const
         {
             vector <vector<string>> transferRegistery;
-            vector<string> transfetRegisteryData = _LoadFileDataToVecString(_TransferRegister, 6);
+            vector<string> transfetRegisteryData = _LoadFileDataToVecString(_TransferRegister, 7);
 
             for (const string& line : transfetRegisteryData) {
                 vector<string> vTransferData = clsString::Split(line, _Delimiter);
   
-                if (vTransferData[1] == this->AccountNumber || vTransferData[3] == this->AccountNumber)
+                if (vTransferData[1] == this->AccountNumber || vTransferData[2] == this->AccountNumber)
                     transferRegistery.push_back(vTransferData);
             }
             return transferRegistery;

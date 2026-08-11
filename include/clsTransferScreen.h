@@ -170,16 +170,16 @@ private:
 
         vector<vector<string>> transferRegistery = client.GetClientTransferRegistery();
         _PrintHeader("Transfer Registery List. [" + to_string(transferRegistery.size()) + "] found");
-        clsTable::PrintTable({ "Date & Time", "Sender AccNo", "Sender Name", "Reciever AccNo", "Reciever Name", "Amount" },
-            { 25, 20, 25, 20, 25, 15 }, transferRegistery, "No Transfers Available For This Client In the System!", 5, clsTable::Colors::BrightCyan);
+        clsTable::PrintTable({ "Date & Time", "Sender AccNo", "Reciever AccNo", "Amount", "Sender Balance After", "Receiver Balance After", "User" },
+            { 25, 20, 25, 20, 25, 25, 15 }, transferRegistery, "No Transfers Available For This Client In the System!", 5, clsTable::Colors::BrightCyan);
     }
 
     static void _ShowAllTransferRegistery()
     {
         vector<vector<string>> transferRegistery = clsBankClient::GetAllTransferRegistery();
         _PrintHeader("Transfer Registery List. [" + to_string(transferRegistery.size()) + "] found", 15);
-        clsTable::PrintTable({ "Date & Time", "Sender AccNo", "Sender Name", "Reciever AccNo", "Reciever Name", "Amount" },
-            { 25, 20, 25, 20, 25, 15 }, transferRegistery, "No Transfers Available In the System!", 5, clsTable::Colors::BrightCyan);
+        clsTable::PrintTable({ "Date & Time", "Sender AccNo", "Reciever AccNo", "Amount", "Sender Balance After", "Receiver Balance After", "User" },
+            { 25, 20, 25, 20, 25, 25, 15 }, transferRegistery, "No Transfers Available For This Client In the System!", 5, clsTable::Colors::BrightCyan);
     }
 
     static void _PerformTransferScreen(enTransferMenueOption option)
