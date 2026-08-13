@@ -333,7 +333,7 @@ public:
             vStringWords.push_back(s);
 
         return vStringWords;
-                 }
+    }
     vector<string> Split(string delimiter)
     {
         return clsString::Split(_value, delimiter);

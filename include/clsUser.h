@@ -5,11 +5,15 @@
 #include "clsPerson.h"
 #include "clsString.h"
 #include "MyInputLibrary.h"
+#include "clsUtility.h"
 
 class clsUser :public clsPerson
 {
-    // clients data written in the file as follows: 
+    // users data written in the file as follows: 
     // username _Delimiter password _Delimiter firstName _Delimiter lastname _Delimiter email _Delimiter phone _Delimiter permissions
+
+    // user login history data written in the file as follows:
+    // loginTime _Delimiter username _Delimiter password _Delimiter permissions
 public:
     static enum enUserPermissions
     {
@@ -29,12 +33,13 @@ private:
     inline static const string _UsersDataFileName = "data/UsersData.txt";
     inline static const string _UsersLoginRegister = "data/LoginRegister.txt";
     inline static const string _Delimiter = "#//#";
+    inline static const int _EncryptionKey = 5;
 
     enum enMode { EmptyMode = 0, UpdateMode = 1, AddNewMode = 2 };
     enMode _Mode;
     string _Username;
     string _Password;
-    int _Permissions;
+    unsigned int _Permissions;
     bool _MarkForDelete = 0;
 
     static vector<string>  _LoadFileDataToVecString(const string& dataFileName, short dataSize = 7)
@@ -88,7 +93,7 @@ private:
 
         return clsUser(enMode::UpdateMode,
             vUserData[0],
-            vUserData[1],
+            clsUtility::DecryptText(vUserData[1], _EncryptionKey),
             vUserData[2],
             vUserData[3],
             vUserData[4],
@@ -99,7 +104,7 @@ private:
     {
         string lineOfData = "";
         lineOfData += user._Username + _Delimiter;
-        lineOfData += user._Password + _Delimiter;
+        lineOfData += clsUtility::EncryptText(user._Password, _EncryptionKey) + _Delimiter;
         lineOfData += user.FirstName + _Delimiter;
         lineOfData += user.LastName + _Delimiter;
         lineOfData += user.Email + _Delimiter;
@@ -122,7 +127,7 @@ private:
         }
         return vUsers;
     }
-    void _SaveVecClientsToFile(const vector<clsUser>& vUsers, bool appendMode) const
+    void _SaveVecUsersToFile(const vector<clsUser>& vUsers, bool appendMode) const
     {
         ofstream dataFile;
         if (appendMode)
@@ -150,7 +155,7 @@ private:
         for (clsUser& user : vUsers) {
             if (user.UserName == this->_Username) {
                 user = *this;
-                _SaveVecClientsToFile(vUsers, false);
+                _SaveVecUsersToFile(vUsers, false);
                 return true;
             }
         }
@@ -280,7 +285,7 @@ public:
             if (user.UserName == this->_Username)
             {
                     user.MarkForDelete();
-                    _SaveVecClientsToFile(vAllUsers, false);
+                    _SaveVecUsersToFile(vAllUsers, false);
                     *this = _GetEmptyUserObj(); // reset the current object to empty state after deletion
                     return dlSucceeded;
             }
@@ -333,7 +338,7 @@ public:
         string lineOfData = 
         clsDate::GetCurrentDateTimeString() + _Delimiter
         + this->_Username + _Delimiter 
-        + this->Password + _Delimiter
+        + clsUtility::EncryptText(this->_Password, _EncryptionKey) + _Delimiter
         + to_string(this->Permissions);
 
         _SaveDataLineToFile(lineOfData, _UsersLoginRegister, true);
@@ -345,7 +350,9 @@ public:
         vector<string> loginRegisteryData = _LoadFileDataToVecString(_UsersLoginRegister, 4);
         for (string& line : loginRegisteryData)
         {
-            loginRegistery.push_back(clsString::Split(line, _Delimiter));
+            vector <string> splitLine = clsString::Split(line, _Delimiter);
+            splitLine[2] = clsUtility::DecryptText(splitLine[2], _EncryptionKey);
+            loginRegistery.push_back(splitLine);
         }
         return loginRegistery;
     }
