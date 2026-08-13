@@ -134,21 +134,40 @@ private:
 
             if (transferResult == clsBankClient::enTransferResults::trSucceeded)
             {
-                senderClient.RegisterTransfer(receiverClient.AccountNumber, amount);
+                Print("\n");        Print("<<< Transfer Successful. >>>\n");
+                _PrintClientCard(senderClient);
+                _PrintClientCard(receiverClient);
                 break;
             }
 
             else if (transferResult == clsBankClient::enTransferResults::trFailedInsufficientFunds)
-                Print("\n<<< Insufficient Funds. >>>\n");
-
+            {
+                Print("\n");
+                Print("<<< Insufficient Funds. >>>\n");
+                Print("Do you want to try a different amount? (Y/N): ");
+                if (!MyInputLibrary::ReadYesNo(""))
+                {
+                    Print("\n");
+                    Print("Transfer Cancelled.\n");
+                    break;
+                }
+            }
+           
             else if (transferResult == clsBankClient::enTransferResults::trFailedDepositError)
-                Print("\n<<< Deposit Error. >>>\n");
+            {
+                Print("\n");
+                Print("<<< Deposit Error. >>>\n");
+                Print("Do you want to try again? (Y/N): ");
+                if (!MyInputLibrary::ReadYesNo(""))
+                {
+                    Print("\n");
+                    Print("Transfer Cancelled.\n");
+                    break;
+                }
+            }
 
         }
 
-        Print("\n");        Print("<<< Transfer Successful. >>>\n");
-        _PrintClientCard(senderClient);
-        _PrintClientCard(receiverClient);
     }
 
     static void _ShowClientTransferRegistery()

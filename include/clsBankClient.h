@@ -160,6 +160,19 @@ private:
     {
         _SaveDataLineToFile(_ConvertBankClientObjectToLine(*this), _ClientsFileName, true);
     }
+    void _RegisterTransfer(const string& receiverAccountNumber, double amount) const
+    {
+        string lineOfData =
+            clsDate::GetCurrentDateTimeString() + _Delimiter
+            + this->AccountNumber + _Delimiter
+            + receiverAccountNumber + _Delimiter
+            + to_string(amount) + _Delimiter
+            + std::to_string(this->Balance) + _Delimiter
+            + std::to_string(FindClient(receiverAccountNumber).Balance) + _Delimiter
+            + CurrentUser.UserName;
+
+        _SaveDataLineToFile(lineOfData, _TransferRegister, true);
+    }
 
     public:
         clsBankClient(enMode Mode, string FirstName, string LastName, string Email, string Phone, string AccountNumber, string Pincode, double Balance)
@@ -317,7 +330,10 @@ private:
             if (this->Withdraw(amount))
             {
                 if (receiver.Deposit(amount))
+                {
+                    this->_RegisterTransfer(receiver.AccountNumber, amount);
                     return trSucceeded;
+                }
                 else
                 {
                     // rollback the withdrawal if deposit fails
@@ -328,19 +344,7 @@ private:
             return trFailedInsufficientFunds;
         }
 
-        void RegisterTransfer(const string& receiverAccountNumber, double amount) const
-        {
-            string lineOfData =
-                clsDate::GetCurrentDateTimeString() + _Delimiter
-                + this->AccountNumber + _Delimiter
-                + receiverAccountNumber + _Delimiter
-                + to_string(amount) + _Delimiter
-                + std::to_string(this->Balance) + _Delimiter
-                + std::to_string(FindClient(receiverAccountNumber).Balance) + _Delimiter
-                + CurrentUser.UserName;
 
-            _SaveDataLineToFile(lineOfData, _TransferRegister, true); 
-        }
 
 
         static vector<vector<string>> GetAllTransferRegistery()
