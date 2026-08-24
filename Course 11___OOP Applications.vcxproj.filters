@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Screens\User Screens">
       <UniqueIdentifier>{efbd6b83-e691-4461-949c-b9209a87f263}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Screens\Currency Screens">
+      <UniqueIdentifier>{394ccbcc-5ed9-4805-b058-73393eae8058}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Global.h">
@@ -119,6 +122,21 @@
     </ClInclude>
     <ClInclude Include="include\clsLoginRegisterScreen.h">
       <Filter>Header Files\Screens\User Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsCurrency.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsCurrencyMenuScreen.h">
+      <Filter>Header Files\Screens\Currency Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsCurrenciesListScreen.h">
+      <Filter>Header Files\Screens\Currency Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsFindCurrenyScreen.h">
+      <Filter>Header Files\Screens\Currency Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\clsConvertCurrency.h">
+      <Filter>Header Files\Screens\Currency Screens</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
