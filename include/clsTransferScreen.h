@@ -18,19 +18,19 @@ private:
 
     static enTransferMenueOption _ReadTransferMenueOption()
     {
-        Print("\n"); Print("");
+        _Print("\n"); _Print("");
         return (enTransferMenueOption)MyInputLibrary::ReadNumberBetween(1, 4, "Choose what do you want to do? [1-4]: ");
     }
 
     static void _PrintClientCard(clsBankClient& client) 
     {
-        Print("\n");
-        Print("        Client Card\n");
-        Print("=============================\n");
-        Print("Full Name   : " + client.FirstName + " " + client.LastName + "\n");
-        Print("Account No.  : " + client.AccountNumber + "\n");
-        Print("Balance      : " + to_string(client.Balance) + "\n");
-        Print("=============================\n\n");
+        _Print("\n");
+        _Print("        Client Card\n");
+        _Print("=============================\n");
+        _Print("Full Name   : " + client.FirstName + " " + client.LastName + "\n");
+        _Print("Account No.  : " + client.AccountNumber + "\n");
+        _Print("Balance      : " + to_string(client.Balance) + "\n");
+        _Print("=============================\n\n");
     }
 
     static  clsBankClient _PrepreSender()
@@ -40,28 +40,28 @@ private:
 
         while (!confirmSender)
         {
-            Print("Enter Sender Account Number: ");
+            _Print("Enter Sender Account Number: ");
             string senderAccountNumber = MyInputLibrary::ReadLine("");
             senderClient = clsBankClient::FindClient(senderAccountNumber);
 
             while (senderClient.IsEmpty())
             {
-                Print("\n");
-                Print("<<< Sender Account Not Found. >>>\n");
-                Print("Press any key to try again...\n\n");
+                _Print("\n");
+                _Print("<<< Sender Account Not Found. >>>\n");
+                _Print("Press any key to try again...\n\n");
                 system("pause>0");
 
-                Print("Enter Sender Account Number: ");
+                _Print("Enter Sender Account Number: ");
                 senderAccountNumber = MyInputLibrary::ReadLine("");
                 senderClient = clsBankClient::FindClient(senderAccountNumber);
             }
 
             _PrintClientCard(senderClient);
 
-            Print("Are you sure you want to use this account as sender? (Y/N): ");
+            _Print("Are you sure you want to use this account as sender? (Y/N): ");
             confirmSender = MyInputLibrary::ReadYesNo("");
 
-            Print("\n");
+            _Print("\n");
         }
         return senderClient;
     }
@@ -73,7 +73,7 @@ private:
 
         while (!confirmReceiver)
         {
-            Print("Enter Receiver Account Number: ");
+            _Print("Enter Receiver Account Number: ");
             string receiverAccountNumber = MyInputLibrary::ReadLine("");
             receiverClient = clsBankClient::FindClient(receiverAccountNumber);
 
@@ -81,29 +81,29 @@ private:
             {
                 if (receiverClient.IsEmpty())
                 {
-                    Print("\n");
-                    Print("<<< Receiver Account Not Found. >>>\n");
+                    _Print("\n");
+                    _Print("<<< Receiver Account Not Found. >>>\n");
                 }
                 else
                 {
-                    Print("\n");
-                    Print("<<< You cannot transfer to the same account! >>>\n");
+                    _Print("\n");
+                    _Print("<<< You cannot transfer to the same account! >>>\n");
                 }
 
-                Print("Press any key to try again...\n\n");
+                _Print("Press any key to try again...\n\n");
                 system("pause>0");
 
-                Print("Enter Receiver Account Number: ");
+                _Print("Enter Receiver Account Number: ");
                 receiverAccountNumber = MyInputLibrary::ReadLine("");
                 receiverClient = clsBankClient::FindClient(receiverAccountNumber);
             }
 
             _PrintClientCard(receiverClient);
 
-            Print("Are you sure you want to use this account as receiver? (Y/N): ");
+            _Print("Are you sure you want to use this account as receiver? (Y/N): ");
             confirmReceiver = MyInputLibrary::ReadYesNo("");
 
-            Print("\n");
+            _Print("\n");
         }
 
         return receiverClient;
@@ -121,10 +121,10 @@ private:
             bool confirmAmount = false;
             while (!confirmAmount)
             {
-                Print("\n");
-                Print("Enter Amount to Transfer: ");
+                _Print("\n");
+                _Print("Enter Amount to Transfer: ");
                 amount = MyInputLibrary::ReadDouble("");
-                Print("");
+                _Print("");
                 confirmAmount = MyInputLibrary::ReadYesNo("Are you sure you want to transfer "
                     + to_string(amount) + "$ from " + senderClient.FullName() + " to "
                     + receiverClient.FullName() + "? (Y/N): ");
@@ -134,7 +134,7 @@ private:
 
             if (transferResult == clsBankClient::enTransferResults::trSucceeded)
             {
-                Print("\n");        Print("<<< Transfer Successful. >>>\n");
+                _Print("\n");        _Print("<<< Transfer Successful. >>>\n");
                 _PrintClientCard(senderClient);
                 _PrintClientCard(receiverClient);
                 break;
@@ -142,26 +142,26 @@ private:
 
             else if (transferResult == clsBankClient::enTransferResults::trFailedInsufficientFunds)
             {
-                Print("\n");
-                Print("<<< Insufficient Funds. >>>\n");
-                Print("Do you want to try a different amount? (Y/N): ");
+                _Print("\n");
+                _Print("<<< Insufficient Funds. >>>\n");
+                _Print("Do you want to try a different amount? (Y/N): ");
                 if (!MyInputLibrary::ReadYesNo(""))
                 {
-                    Print("\n");
-                    Print("Transfer Cancelled.\n");
+                    _Print("\n");
+                    _Print("Transfer Cancelled.\n");
                     break;
                 }
             }
            
             else if (transferResult == clsBankClient::enTransferResults::trFailedDepositError)
             {
-                Print("\n");
-                Print("<<< Deposit Error. >>>\n");
-                Print("Do you want to try again? (Y/N): ");
+                _Print("\n");
+                _Print("<<< Deposit Error. >>>\n");
+                _Print("Do you want to try again? (Y/N): ");
                 if (!MyInputLibrary::ReadYesNo(""))
                 {
-                    Print("\n");
-                    Print("Transfer Cancelled.\n");
+                    _Print("\n");
+                    _Print("Transfer Cancelled.\n");
                     break;
                 }
             }
@@ -172,18 +172,18 @@ private:
 
     static void _ShowClientTransferRegistery()
     {
-        Print("\n");
-        Print("Enter Client Account Number: ");
+        _Print("\n");
+        _Print("Enter Client Account Number: ");
 
         string accountNumber = MyInputLibrary::ReadWord("");
         clsBankClient client = clsBankClient::FindClient(accountNumber);
 
         while (client.IsEmpty())
         {
-            Print("\n");
-            Print("<<< Client Account Not Found. >>>");
+            _Print("\n");
+            _Print("<<< Client Account Not Found. >>>");
             _PauseScreen("Press any key to try again...\n\n");
-            Print("Enter Client Account Number: ");
+            _Print("Enter Client Account Number: ");
             accountNumber = MyInputLibrary::ReadWord("");
         }
 
@@ -221,7 +221,7 @@ private:
         case clsTransferScreen::eGoBack:
             return;
         default:
-            Print("\n"); Print("Invalid choice. Please try again.\n");
+            _Print("\n"); _Print("Invalid choice. Please try again.\n");
             _PauseScreen();
             return;
         }
@@ -237,12 +237,12 @@ public:
         {
             system("cls");
             _PrintHeader("Transfer Screen");
-            Print("===============================\n");
-            Print(" [1] Transfer Money.\n");
-            Print(" [2] ShowClient Transfers.\n");
-            Print(" [3] Show All Transfers.\n");
-            Print(" [4] Return To Main Menue.\n");
-            Print("===============================\n");
+            _Print("===============================\n");
+            _Print(" [1] Transfer Money.\n");
+            _Print(" [2] ShowClient Transfers.\n");
+            _Print(" [3] Show All Transfers.\n");
+            _Print(" [4] Return To Main Menue.\n");
+            _Print("===============================\n");
             choice = _ReadTransferMenueOption();
             _PerformTransferScreen(choice);
 

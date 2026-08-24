@@ -9,28 +9,28 @@ class clsUpdateClientScreen :
 private:
     static void _ReadClientData(clsBankClient& client)
     {
-        Print("Please enter the following client data:\n\n");
-        Print("");  client.FirstName = MyInputLibrary::ReadLine("First Name: ");
-        Print("");  client.LastName = MyInputLibrary::ReadLine("Last Name: ");
-        Print("");  client.Email = MyInputLibrary::ReadLine("Email: ");
-        Print("");  client.Phone = MyInputLibrary::ReadLine("Phone: ");
-        Print("");  client.Pincode = MyInputLibrary::ReadLine("Pin Code: ");
-        Print("");  client.Balance = MyInputLibrary::ReadPositiveDouble("Balance: ");
+        _Print("Please enter the following client data:\n\n");
+        _Print("");  client.FirstName = MyInputLibrary::ReadLine("First Name: ");
+        _Print("");  client.LastName = MyInputLibrary::ReadLine("Last Name: ");
+        _Print("");  client.Email = MyInputLibrary::ReadLine("Email: ");
+        _Print("");  client.Phone = MyInputLibrary::ReadLine("Phone: ");
+        _Print("");  client.Pincode = MyInputLibrary::ReadLine("Pin Code: ");
+        _Print("");  client.Balance = MyInputLibrary::ReadPositiveDouble("Balance: ");
 
     }
-    static void _Print(clsBankClient & client) 
+    static void _PrintClientCard(clsBankClient & client) 
     {
-       Print("\n");
-       Print( "        Client Card\n");
-       Print( "=============================\n");
-       Print("First Name   : " + client.FirstName + "\n");
-       Print("Last Name    : " + client.LastName + "\n");
-       Print("Email        : " + client.Email + "\n");
-       Print("Phone        : " + client.Phone + "\n");
-       Print("Account No.  : " + client.AccountNumber + "\n");
-       Print("Pincode      : " + client.Pincode + "\n");
-       Print("Balance      : " + to_string(client.Balance) + "\n");
-       Print("=============================\n\n");
+       _Print("\n");
+       _Print( "        Client Card\n");
+       _Print( "=============================\n");
+       _Print("First Name   : " + client.FirstName + "\n");
+       _Print("Last Name    : " + client.LastName + "\n");
+       _Print("Email        : " + client.Email + "\n");
+       _Print("Phone        : " + client.Phone + "\n");
+       _Print("Account No.  : " + client.AccountNumber + "\n");
+       _Print("Pincode      : " + client.Pincode + "\n");
+       _Print("Balance      : " + to_string(client.Balance) + "\n");
+       _Print("=============================\n\n");
     }
     static void _PrintOldVsNewClientData(const clsBankClient& OldClient, const clsBankClient& NewClient)
     {
@@ -65,46 +65,46 @@ public:
     static void UpdateClientScreen()
     {
         _PrintHeader("Update Client Data Screen");
-        Print("");
+        _Print("");
         string AccountNumber = MyInputLibrary::ReadLine("Enter Account number of the client to update: ");
         clsBankClient client = clsBankClient::FindClient(AccountNumber);
         
         while (client.IsEmpty()) {
-            Print("Client with Account Number " + AccountNumber + " not found.\n");
-            Print("\n");
-            Print("");
+            _Print("Client with Account Number " + AccountNumber + " not found.\n");
+            _Print("\n");
+            _Print("");
             AccountNumber = MyInputLibrary::ReadLine("Enter Account number of the client to update: ");
             client = clsBankClient::FindClient(AccountNumber);
         }
-        Print("\n");
-        Print("Current Client Data:\n");
+        _Print("\n");
+        _Print("Current Client Data:\n");
          
-        _Print(client);
+        _PrintClientCard(client);
         clsBankClient newClientData = client; // to hold old data before updating
-        Print("Please enter new data for the client:\n");
+        _Print("Please enter new data for the client:\n");
         _ReadClientData(newClientData);
         
         _PrintOldVsNewClientData(client, newClientData);
 
-        Print(""); // just to allign the msg of the next line
+        _Print(""); // just to allign the msg of the next line
         if( ! MyInputLibrary::ReadYesNo("Do you want to update this client? (Y/N): "))
         {
-            Print("\n");
-            Print("");
-            Print("Update cancelled by user.\n");
+            _Print("\n");
+            _Print("");
+            _Print("Update cancelled by user.\n");
             return;
         }
 
         clsBankClient::enSaveResults saveResult = newClientData.Save();
         if (saveResult == clsBankClient::svSucceeded)
         {
-            Print("\n");
-            Print("Client data updated successfully.\n");
+            _Print("\n");
+            _Print("Client data updated successfully.\n");
         }
         else
         {
-            Print("\n");
-            Print("Failed to update client data.\n");
+            _Print("\n");
+            _Print("Failed to update client data.\n");
         }
     }
 

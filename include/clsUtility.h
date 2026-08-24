@@ -8,7 +8,7 @@
 #include "clsString.h"
 #include "clsDate.h"
 #include "clsTable.h"
-
+#include <fstream>
 using namespace std;
 
 class clsUtility
@@ -490,6 +490,49 @@ public:
     {
         return DecryptText(str, _encryptionKey);
     }
+
+
+    static vector<string>  LoadFileDataToVecString(const string& dataFileName,const string & delimiter, short dataSize)
+    {
+        vector<string> vData;
+        string dataLine = "";
+
+        ifstream dataFile;
+        dataFile.open(dataFileName);
+        if (dataFile.is_open())
+        {
+            while (getline(dataFile, dataLine))
+            {
+                // never trust external data:
+                if (dataLine.empty())
+                    continue;
+
+                // validate data line
+                if (clsString::Split(dataLine, delimiter).size() != dataSize)
+                    continue; // skip invalid data lines
+
+                vData.push_back(dataLine);
+            }
+            dataFile.close();
+        }
+        return vData;
+    }
+    static void SaveDataLineToFile(const string& dataLine, const string& dataFileName, const bool& appendMode)
+    {
+        ofstream dataFile;
+        if (appendMode)
+            dataFile.open(dataFileName, ios::out | ios::app); // keep the old data and append new data
+        else
+            dataFile.open(dataFileName, ios::trunc); // overwrite the file
+
+        if (dataFile.is_open())
+        {
+            dataFile << dataLine << endl;
+            dataFile.close();
+        }
+
+    }
+
 
 };
 

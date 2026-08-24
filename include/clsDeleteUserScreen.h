@@ -3,7 +3,7 @@
 class clsDeleteUserScreen :protected clsScreen
 {
 private:
-    static void _Print(clsUser& user)
+    static void _PrintUserCard(clsUser& user)
     {
         string permissionsStr = to_string(user.Permissions);
         string passwordStr = user.Password;
@@ -14,17 +14,17 @@ private:
             passwordStr = "********";
         }
 
-        Print("\n");
-        Print("        User Card\n");
-        Print("=============================\n");
-        Print(" First Name  : " + user.FirstName + "\n");
-        Print(" Last Name   : " + user.LastName + "\n");
-        Print(" Email       : " + user.Email + "\n");
-        Print(" Phone       : " + user.Phone + "\n");
-        Print(" UserName.   : " + user.UserName + "\n");
-        Print(" Password    : " + passwordStr + "\n");
-        Print(" Permissions : " + permissionsStr + "\n");
-        Print("=============================\n\n");
+        _Print("\n");
+        _Print("        User Card\n");
+        _Print("=============================\n");
+        _Print(" First Name  : " + user.FirstName + "\n");
+        _Print(" Last Name   : " + user.LastName + "\n");
+        _Print(" Email       : " + user.Email + "\n");
+        _Print(" Phone       : " + user.Phone + "\n");
+        _Print(" UserName.   : " + user.UserName + "\n");
+        _Print(" Password    : " + passwordStr + "\n");
+        _Print(" Permissions : " + permissionsStr + "\n");
+        _Print("=============================\n\n");
     }
 
 public:
@@ -32,39 +32,39 @@ public:
     static void ShowDeleteUserScreen()
     {
         _PrintHeader("Delete User Screen", 5);
-        Print("");   // shifting line for better output format
+        _Print("");   // shifting line for better output format
         std::string username = MyInputLibrary::ReadLine("Enter Username to Delete: ");
         clsUser user = clsUser::FindUser(username);
 
         while (user.IsEmpty())
         {
-            Print("The Username: " + username + " was NOT found.\n");
-            Print("");      username = MyInputLibrary::ReadLine("Enter Username to Delete: ");
+            _Print("The Username: " + username + " was NOT found.\n");
+            _Print("");      username = MyInputLibrary::ReadLine("Enter Username to Delete: ");
             user = clsUser::FindUser(username);
         }
 
-        _Print(user);
+        _PrintUserCard(user);
 
-        Print("");
+        _Print("");
         if (!MyInputLibrary::ReadYesNo("Are you sure you want to delete this user? (Y/N): "))
         {
-            Print("User deletion cancelled by user.\n");
+            _Print("User deletion cancelled by user.\n");
             return;
         }
 
         switch (user.Delete())
         {
             case clsUser::enDeleteResults::dlAdminDeleteAttempt:
-                Print("Deleting admin user is not allowed.\n");
+                _Print("Deleting admin user is not allowed.\n");
                 break;
             case clsUser::enDeleteResults::dlNotFound:
-                Print("User not found. Deletion failed.\n");
+                _Print("User not found. Deletion failed.\n");
                 break;
             case clsUser::enDeleteResults::dlSucceeded:
-                 Print("User Deleted Successfully.\n");
+                 _Print("User Deleted Successfully.\n");
                  break;
             default:
-                Print("An unexpected error occurred during deletion.\n");
+                _Print("An unexpected error occurred during deletion.\n");
                 break;
         }
 

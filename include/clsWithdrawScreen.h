@@ -9,39 +9,39 @@ public:
     static void ShowWithdrawScreen()
     {
         _PrintHeader("Withdraw Screen");
-        Print("Enter Account Number: ");
+        _Print("Enter Account Number: ");
         string AccountNumber = MyInputLibrary::ReadWord("");
 
         clsBankClient client = clsBankClient::FindClient(AccountNumber);
 
         while (client.IsEmpty())
         {
-            Print("\n");
-            Print("Account Number not found, please enter a valid one: ");
+            _Print("\n");
+            _Print("Account Number not found, please enter a valid one: ");
             AccountNumber = MyInputLibrary::ReadWord("");
         }
-        Print("\n");
-        Print("Enter amount to withdraw : ");
+        _Print("\n");
+        _Print("Enter amount to withdraw : ");
         double amount = MyInputLibrary::ReadPositiveDouble("");
 
-        Print("");
+        _Print("");
         if (MyInputLibrary::ReadYesNo("Are you sure you want to withdraw " + to_string(amount) + " from account " + AccountNumber + " ? (Y/N): ") == false)
         {
-            Print("\n");
-            Print("Operation cancelled by user.\n");
+            _Print("\n");
+            _Print("Operation cancelled by user.\n");
             return;
         }
 
         if (client.Withdraw(amount))
         {
-            Print("\n");
-            Print("Amount withdrawed successfully.\n");
-            Print("New Balance is: " + to_string(client.Balance) + "\n");
+            _Print("\n");
+            _Print("Amount withdrawed successfully.\n");
+            _Print("New Balance is: " + to_string(client.Balance) + "\n");
         }
         else
         {
-            Print("\n");
-            Print("Error: Amount withdraw failed.\n");
+            _Print("\n");
+            _Print("Error: Amount withdraw failed.\n");
         }
     }
 

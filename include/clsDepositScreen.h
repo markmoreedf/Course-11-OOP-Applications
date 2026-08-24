@@ -11,40 +11,40 @@ public:
     static void ShowDepositScreen()
     {
         _PrintHeader("Deposit Screen");
-        Print("Enter Account Number: ");
+        _Print("Enter Account Number: ");
         string AccountNumber = MyInputLibrary::ReadWord("");
 
         clsBankClient client = clsBankClient::FindClient(AccountNumber);
 
         while (client.IsEmpty())
         {
-            Print("\n");
-            Print("Account Number not found, please enter a valid one: ");
+            _Print("\n");
+            _Print("Account Number not found, please enter a valid one: ");
             AccountNumber = MyInputLibrary::ReadWord("");
         }
 
-        Print("\n");
-        Print("Enter amount to deposit : ");
+        _Print("\n");
+        _Print("Enter amount to deposit : ");
         double amount = MyInputLibrary::ReadPositiveDouble("");
 
-        Print("");
+        _Print("");
         if(MyInputLibrary::ReadYesNo("Are you sure you want to deposit " + to_string(amount) + " to account " + AccountNumber + " ? (Y/N): ") == false)
         {
-            Print("\n");
-            Print("Operation cancelled by user.\n");
+            _Print("\n");
+            _Print("Operation cancelled by user.\n");
             return;
         }
 
         if (client.Deposit(amount))
         {
-            Print("\n");
-            Print("Amount deposited successfully.\n");
-            Print("New Balance is: " + to_string(client.Balance) + "\n");
+            _Print("\n");
+            _Print("Amount deposited successfully.\n");
+            _Print("New Balance is: " + to_string(client.Balance) + "\n");
         }
         else
         {
-            Print("\n");
-            Print("Error: Amount deposit failed.\n");
+            _Print("\n");
+            _Print("Error: Amount deposit failed.\n");
         }
 
     }

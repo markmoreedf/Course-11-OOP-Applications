@@ -7,46 +7,46 @@
 class clsDeleteClientScreen :protected clsScreen
 {
 private:
-    static void _Print(clsBankClient& client)
+    static void _PrintClientCard(clsBankClient& client)
     {
-        Print("\n");
-        Print("        Client Card\n");
-        Print("=============================\n");
-        Print("First Name   : " + client.FirstName + "\n");
-        Print("Last Name    : " + client.LastName + "\n");
-        Print("Email        : " + client.Email + "\n");
-        Print("Phone        : " + client.Phone + "\n");
-        Print("Account No.  : " + client.AccountNumber + "\n");
-        Print("Pincode      : " + client.Pincode + "\n");
-        Print("Balance      : " + to_string(client.Balance) + "\n");
-        Print("=============================\n\n");
+        _Print("\n");
+        _Print("        Client Card\n");
+        _Print("=============================\n");
+        _Print("First Name   : " + client.FirstName + "\n");
+        _Print("Last Name    : " + client.LastName + "\n");
+        _Print("Email        : " + client.Email + "\n");
+        _Print("Phone        : " + client.Phone + "\n");
+        _Print("Account No.  : " + client.AccountNumber + "\n");
+        _Print("Pincode      : " + client.Pincode + "\n");
+        _Print("Balance      : " + to_string(client.Balance) + "\n");
+        _Print("=============================\n\n");
     }
 
 public:
     static void ShowDeleteClienScreen()
     {
         _PrintHeader("Delete Client Screen");
-        Print("");   // shifting line for better output format
+        _Print("");   // shifting line for better output format
         std::string AccountNumber = MyInputLibrary::ReadLine("Enter Account Number of the client to delete: ");
         clsBankClient client = clsBankClient::FindClient(AccountNumber);
 
         while(client.IsEmpty())
         {
-            Print("Client with Account Number " + AccountNumber + " not found.\n\n");
-            Print("");      AccountNumber = MyInputLibrary::ReadLine("Enter Account Number of the client to delete: ");
+            _Print("Client with Account Number " + AccountNumber + " not found.\n\n");
+            _Print("");      AccountNumber = MyInputLibrary::ReadLine("Enter Account Number of the client to delete: ");
             client = clsBankClient::FindClient(AccountNumber);
         }
         
-        _Print(client);
+        _PrintClientCard(client);
 
-        Print("");
+        _Print("");
         if (! MyInputLibrary::ReadYesNo("Are you sure you want to delete this client? (Y/N): "))
             return;
         
         if (client.Delete())
-            Print("Client deleted successfully.\n");
+            _Print("Client deleted successfully.\n");
         else 
-            Print("Failed to delete client.\n");
+            _Print("Failed to delete client.\n");
     }
 
 

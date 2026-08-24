@@ -16,11 +16,11 @@ private:
 
         do
         {   
-            Print("Login Attempts: " + to_string(loginAttempts) + "\n"); 
-            Print("_____________________\n\n"); 
-            Print("Enter Username: ");  username = MyInputLibrary::ReadWord("");     Print("\n");
-            Print("Enter Password: ");  password = MyInputLibrary::ReadWord("");     Print("\n");
-            Print("_____________________\n");
+            _Print("Login Attempts: " + to_string(loginAttempts) + "\n"); 
+            _Print("_____________________\n\n"); 
+            _Print("Enter Username: ");  username = MyInputLibrary::ReadWord("");     _Print("\n");
+            _Print("Enter Password: ");  password = MyInputLibrary::ReadWord("");     _Print("\n");
+            _Print("_____________________\n");
 
             CurrentUser = clsUser::FindUser(username, password);
             loginFail = CurrentUser.IsEmpty();
@@ -30,12 +30,12 @@ private:
                 loginAttempts--;
                 if (loginAttempts <= 0)
                 {
-                    Print("\n");
-                    Print("<<< You have exceeded the maximum number of login attempts. Exiting the program. >>>\n\n");
+                    _Print("\n");
+                    _Print("<<< You have exceeded the maximum number of login attempts. Exiting the program. >>>\n\n");
                     return false;
                 }
-                Print("\n");
-                Print("<<< Invalid username or password. Please try again. >>>\n\n");
+                _Print("\n");
+                _Print("<<< Invalid username or password. Please try again. >>>\n\n");
             }
 
         } while (loginFail);

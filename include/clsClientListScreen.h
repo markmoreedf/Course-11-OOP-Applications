@@ -11,7 +11,7 @@ public:
         {
             vector <clsBankClient> clients = clsBankClient::GetClientsList();
             vector<vector<string>> data;
-            _PrintHeader("Clients List. ["+ to_string(clients.size()) + "] found", 15);
+            _PrintHeader("Clients List. ["+ to_string(clients.size()) + "] found", 20);
 
             vector<string> coloumsNames = { "Account No.", "Full Name", "Phone Number", "E-mail", "Pin Code", "Balance" };
             const vector<int> widths = { 20, 30, 18, 30, 15, 25 };

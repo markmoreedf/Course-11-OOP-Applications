@@ -15,6 +15,7 @@
 #include "clsLoginScreen.h"
 #include "clsUser.h"
 #include "clsLogoutScreen.h"
+#include "clsCurrencyMenuScreen.h"
 #include "Global.h"
 
 class clsMainScreen : protected clsScreen
@@ -30,13 +31,14 @@ private:
         eTransactionsMenue = 6,
         eManageUsersMenue = 7,
         eShowLoginHistory = 8,
-        eLogout = 9
+        eCurrencyMenue = 9,
+        eLogout = 10
     };
 
     static enMainMenueOption _ReadMainMenueOption()
     {
-        clsScreen::Print("");
-        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 9, "Choose what do you want to do? [1-9]: ");
+        clsScreen::_Print("");
+        return (enMainMenueOption)MyInputLibrary::ReadNumberBetween(1, 10, "Choose what do you want to do? [1-10]: ");
     }
 
     static void _ClientsListScreen()
@@ -88,6 +90,11 @@ private:
     {
         clsLogoutScreen::Logout();
     }
+    static void _CurrencyMenueScreen()
+    {
+        system("cls");
+        clsCurrencyMenuScreen::ShowCurrencyMenue();
+    }
 
     static void _PerformMainMenueChoice(enMainMenueOption & choice)
     {
@@ -96,8 +103,8 @@ private:
         case eShowClientsList:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::showClientList))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _ClientsListScreen();
@@ -106,8 +113,8 @@ private:
         case eFindClient:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::findClient))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _FindCliendScreen();
@@ -116,8 +123,8 @@ private:
         case eAddNewClient:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::addClient))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _AddNewClientScreen();
@@ -126,8 +133,8 @@ private:
         case eUpdateClientData:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::updateClient))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _UpdateClientScreen();
@@ -136,8 +143,8 @@ private:
         case eDeleteClient:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::deleteClient))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _DeleteClientScreen();
@@ -146,8 +153,8 @@ private:
         case eTransactionsMenue:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::transactions))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _TransactionsScreen();
@@ -156,8 +163,8 @@ private:
         case eManageUsersMenue:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::manageUsers))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _ManageUsersScreen();           
@@ -165,11 +172,20 @@ private:
         case eShowLoginHistory:
             if (! CurrentUser.HasPermission(clsUser::enUserPermissions::showLoginHistory))
             {
-                Print("\n");
-                Print("<<< You Don't Have Permission To Do That. >>>");
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
                 break;
             }
             _ShowLoginHistoryScreen();
+            break;
+        case eCurrencyMenue:
+            if(!CurrentUser.HasPermission(clsUser::enUserPermissions::currencyScreen))
+            {
+                _Print("\n");
+                _Print("<<< You Don't Have Permission To Do That. >>>");
+                break;
+            }
+            _CurrencyMenueScreen();
             break;
         case eLogout:
             if (clsLogoutScreen::Logout())
@@ -178,11 +194,11 @@ private:
                 choice = enMainMenueOption::eAddNewClient; // Reset choice to continue the loop if logout is canceled
                 break;
         default:
-            Print("\n\n");
+            _Print("\n\n");
             _PauseScreen("Invalid choice. Please try again.\n");
             break;
         }
-        Print("\n\n");
+        _Print("\n\n");
         _PauseScreen("Press any key to return to the Main Menu...");
     }
 
@@ -194,17 +210,18 @@ public:
         {
             system("cls");
             _PrintHeader("Main Screen", 5);
-            Print("=================================\n");
-            Print(" [1] Show Clients List.\n");
-            Print(" [2] Find Client.\n");
-            Print(" [3] Add New Client.\n");
-            Print(" [4] Update Client Data.\n");
-            Print(" [5] Delete Client.\n");
-            Print(" [6] Transactions Menue.\n");
-            Print(" [7] Manage Useres Menue\n");
-            Print(" [8] Show Login History\n");
-            Print(" [9] Logout.\n");
-            Print("=================================\n\n");
+            _Print("=================================\n");
+            _Print(" [1] Show Clients List.\n");
+            _Print(" [2] Find Client.\n");
+            _Print(" [3] Add New Client.\n");
+            _Print(" [4] Update Client Data.\n");
+            _Print(" [5] Delete Client.\n");
+            _Print(" [6] Transactions Menue.\n");
+            _Print(" [7] Manage Useres Menue\n");
+            _Print(" [8] Show Login History\n");
+            _Print(" [9] Currency Menue\n");
+            _Print(" [10] Logout.\n");
+            _Print("=================================\n\n");
             choice = _ReadMainMenueOption();
             _PerformMainMenueChoice(choice);
         }

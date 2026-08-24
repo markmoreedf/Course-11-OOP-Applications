@@ -8,7 +8,7 @@ class clsScreen
 protected:
     inline static const std::string spaces = "                                ";
 
-    static void Print(const string & message)
+    static void _Print(const string & message)
     {
         std::cout << spaces << message;
     }

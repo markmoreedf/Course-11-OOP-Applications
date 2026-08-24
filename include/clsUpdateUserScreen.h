@@ -3,7 +3,7 @@
 class clsUpdateUserScreen :protected clsScreen
 {
 private:
-    static void _Print(clsUser& user)
+    static void _PrintUserCard(clsUser& user)
     {
         string permissionsStr = to_string(user.Permissions);
         string passwordStr = user.Password;
@@ -14,68 +14,68 @@ private:
             passwordStr = "********";
         }
 
-        Print("\n");
-        Print("        User Card\n");
-        Print("=============================\n");
-        Print(" First Name  : " + user.FirstName + "\n");
-        Print(" Last Name   : " + user.LastName + "\n");
-        Print(" Email       : " + user.Email + "\n");
-        Print(" Phone       : " + user.Phone + "\n");
-        Print(" UserName.   : " + user.UserName + "\n");
-        Print(" Password    : " + passwordStr + "\n");
-        Print(" Permissions : " + permissionsStr + "\n");
-        Print("=============================\n\n");
+        _Print("\n");
+        _Print("        User Card\n");
+        _Print("=============================\n");
+        _Print(" First Name  : " + user.FirstName + "\n");
+        _Print(" Last Name   : " + user.LastName + "\n");
+        _Print(" Email       : " + user.Email + "\n");
+        _Print(" Phone       : " + user.Phone + "\n");
+        _Print(" UserName.   : " + user.UserName + "\n");
+        _Print(" Password    : " + passwordStr + "\n");
+        _Print(" Permissions : " + permissionsStr + "\n");
+        _Print("=============================\n\n");
     }
     static void _ReadUserPermissions(clsUser& user)
     {
-        std::cout << "\n";     Print("Set User Permissions:\n");         Print("");
+        std::cout << "\n";     _Print("Set User Permissions:\n");         _Print("");
         if (MyInputLibrary::ReadYesNo("Do you want to give full access ? [y/n]\t"))
         {
             user.Permissions = clsUser::enUserPermissions::fullAccess;
         }
         else {
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to View Clients? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::showClientList;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::showClientList;
 
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Find Clients? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::findClient;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::findClient;
 
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Add Clients? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::addClient;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::addClient;
 
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Update Clients? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::updateClient;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::updateClient;
 
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Delete Clients? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::deleteClient;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::deleteClient;
 
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Transactions? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::transactions;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::transactions;
 
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Manage Users? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::manageUsers;
             else
                 user.Permissions &= ~clsUser::enUserPermissions::manageUsers;
-            Print("");
+            _Print("");
             if (MyInputLibrary::ReadYesNo("Give access to Show Login History? [y/n]\t"))
                 user.Permissions |= clsUser::enUserPermissions::showLoginHistory;
             else
@@ -84,12 +84,12 @@ private:
     }
     static void _ReadUserData(clsUser& user)
     {
-        Print("Please enter the following user data:\n");
-        Print("");  user.FirstName = MyInputLibrary::ReadLine("First Name: ");
-        Print("");  user.LastName = MyInputLibrary::ReadLine("Last Name: ");
-        Print("");  user.Email = MyInputLibrary::ReadLine("Email: ");
-        Print("");  user.Phone = MyInputLibrary::ReadLine("Phone: ");
-        Print("");  user.Password = MyInputLibrary::ReadLine("Password: ");
+        _Print("Please enter the following user data:\n");
+        _Print("");  user.FirstName = MyInputLibrary::ReadLine("First Name: ");
+        _Print("");  user.LastName = MyInputLibrary::ReadLine("Last Name: ");
+        _Print("");  user.Email = MyInputLibrary::ReadLine("Email: ");
+        _Print("");  user.Phone = MyInputLibrary::ReadLine("Phone: ");
+        _Print("");  user.Password = MyInputLibrary::ReadLine("Password: ");
         _ReadUserPermissions(user);
     }
     static void _PrintOldVsNewUserData(const clsUser& OldUser, const clsUser& NewUser)
@@ -126,43 +126,43 @@ public:
     static void ShowUpdateUserScreen()
     {
         _PrintHeader("Update User Screen", 5);
-        Print("");
+        _Print("");
         string username = MyInputLibrary::ReadLine("Enter Username to update: ");
         clsUser user = clsUser::FindUser(username);
 
         while (user.IsEmpty()) {
-            Print("The Username: " + username + " not found.\n");
-            Print("");
+            _Print("The Username: " + username + " not found.\n");
+            _Print("");
             username = MyInputLibrary::ReadLine("Enter Username to Update: ");
             user = clsUser::FindUser(username);
         }
-        Print("\nCurrent User Data:\n");
+        _Print("\nCurrent User Data:\n");
 
-        _Print(user);
+        _PrintUserCard(user);
         clsUser newUserData = user; // to hold old data before updating
-        Print("Please enter new data for the user:\n");
+        _Print("Please enter new data for the user:\n");
         _ReadUserData(newUserData);
 
         _PrintOldVsNewUserData(user, newUserData);
 
-        std::cout << "\t";     Print(""); // just to allign the msg of the next line
+        std::cout << "\t";     _Print(""); // just to allign the msg of the next line
         if (!MyInputLibrary::ReadYesNo("Do you want to update this user? (Y/N): "))
         {
             std::cout << "\n";
-            Print("Update cancelled by user.\n");
+            _Print("Update cancelled by user.\n");
             return;
         }
 
         clsUser::enSaveResults saveResult = newUserData.Save();
         if (saveResult == clsUser::svSucceeded)
         {
-            Print("\n");
-            Print("Client data updated successfully.\n");
+            _Print("\n");
+            _Print("Client data updated successfully.\n");
         }
         else
         {
-            Print("\n");
-            Print("Failed to update client data.\n");
+            _Print("\n");
+            _Print("Failed to update client data.\n");
         }
     
     }

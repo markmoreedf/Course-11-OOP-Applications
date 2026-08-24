@@ -40,7 +40,7 @@ private:
 
     static enTransactionMenueOption _ReadTransactionMenueOption()
     {
-        Print("\n"); Print("");
+        _Print("\n"); _Print("");
         return (enTransactionMenueOption)MyInputLibrary::ReadNumberBetween(1, 5, "Choose what do you want to do? [1-5]: ");
     }
 
@@ -63,11 +63,11 @@ private:
         case eMainMenue:
             return; // Exit to main menue, without calling clsMainScreen::ShowMainMenue(). recursion avoidance
         default:
-            Print("Invalid choice. Please try again.\n");
+            _Print("Invalid choice. Please try again.\n");
             _PauseScreen();
             break;
         }
-        Print("\n\n");
+        _Print("\n\n");
         _PauseScreen("Press any key to go back");
     }
 
@@ -79,13 +79,13 @@ public:
         {
             system("cls");
             _PrintHeader("Transactions Menue",2);
-            Print("===============================\n");
-            Print(" [1] Deposit.\n");
-            Print(" [2] Withdraw.\n");
-            Print(" [3] Show All Balances.\n");
-            Print(" [4] Transfer.\n");
-            Print(" [5] Return to Main Menue.\n");
-            Print("===============================\n");
+            _Print("===============================\n");
+            _Print(" [1] Deposit.\n");
+            _Print(" [2] Withdraw.\n");
+            _Print(" [3] Show All Balances.\n");
+            _Print(" [4] Transfer.\n");
+            _Print(" [5] Return to Main Menue.\n");
+            _Print("===============================\n");
             transactionMenueChoice = _ReadTransactionMenueOption();
             _PerformTransactionMenueChoice(transactionMenueChoice);
 

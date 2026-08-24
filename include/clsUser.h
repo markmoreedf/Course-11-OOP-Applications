@@ -14,20 +14,7 @@ class clsUser :public clsPerson
 
     // user login history data written in the file as follows:
     // loginTime _Delimiter username _Delimiter password _Delimiter permissions
-public:
-    static enum enUserPermissions
-    {
-        showClientList = 0b0000000001,
-        findClient = 0b0000000010,
-        addClient = 0b0000000100,
-        updateClient = 0b0000001000,
-        deleteClient = 0b0000010000,
-        transactions = 0b0000100000,
-        manageUsers = 0b0001000000,
-        showLoginHistory = 0b0010000000,
-        fullAccess = 0b0011111111
-    };
-   
+
 
 private:
     inline static const string _UsersDataFileName = "data/UsersData.txt";
@@ -168,6 +155,19 @@ private:
 
 
 public:
+    static enum enUserPermissions
+    {
+        showClientList = 1,
+        findClient = 2,
+        addClient = 4,
+        updateClient = 8,
+        deleteClient = 16,
+        transactions = 32,
+        manageUsers = 64,
+        showLoginHistory = 128,
+        currencyScreen = 256,
+        fullAccess = 511
+    };
 
     clsUser (enMode mode, string username, string password, string firstName, string lastName, string email, string phone, unsigned int permissions)
         : clsPerson(firstName, lastName, email, phone),
