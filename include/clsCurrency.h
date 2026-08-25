@@ -122,7 +122,7 @@ public:
         return (!currency.IsEmpty());
     }
 
-    static clsCurrency FindCurrencyByCode(const string& currencyCode)
+    static clsCurrency FindByCode(const string& currencyCode)
     {
         vector<clsCurrency> vCurrencies = _LoadCurrencyFileToVecObjects();
         for (const clsCurrency& currency : vCurrencies) {
@@ -152,33 +152,42 @@ public:
     }
 
 
-    static void SetRate(const string& currencyCode, double newRate)
+    static bool SetRate(const string& currencyCode, double newRate)
     {
         if (newRate <= 0)
-        { return; }
+        { return false; }
 
-        clsCurrency currency = clsCurrency::FindCurrencyByCode(currencyCode);
+        clsCurrency currency = clsCurrency::FindByCode(currencyCode);
 
         if (currency.IsEmpty())
-        { return; }
+        { return false; }
 
         currency._rate = newRate;
-        currency._Update();
+        if(currency._Update())
+        {
+            return true;
+        }
+
+        return false;
     }
-    static void SetRate(clsCurrency & currency,double newRate)
+    static bool SetRate(clsCurrency & currency,double newRate)
     {
         if (newRate <= 0)
-        { return; }
+        { return false; }
 
         if (currency.IsEmpty())
-        { return; }
+        { return false; }
 
         currency._rate = newRate;
-        currency._Update();
+        if (currency._Update())
+        {
+            return true;
+        }
+        return false;
     }
-    void SetRate(double newRate)
+    bool SetRate(double newRate)
     {
-        SetRate(*this, newRate);
+        return SetRate(*this, newRate);
     }
 
     static vector<clsCurrency> GetCurrenciesList()

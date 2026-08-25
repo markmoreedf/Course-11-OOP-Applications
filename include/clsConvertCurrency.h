@@ -19,13 +19,13 @@ private:
     {
         _Print("\n");
         _Print("Enter Currency Code To Convert From: ");
-        clsCurrency fromCurrency = clsCurrency::FindCurrencyByCode(MyInputLibrary::ReadWord(""));
+        clsCurrency fromCurrency = clsCurrency::FindByCode(MyInputLibrary::ReadWord(""));
         while(fromCurrency.IsEmpty())
         {
             _Print("\n");
             _Print("No currency found with this code\n");
             _Print("Enter Currency Code To Convert From: ");
-            fromCurrency = clsCurrency::FindCurrencyByCode(MyInputLibrary::ReadWord(""));
+            fromCurrency = clsCurrency::FindByCode(MyInputLibrary::ReadWord(""));
         }
 
         _Print("\n");
@@ -34,13 +34,13 @@ private:
         _Print("\n");
 
         _Print("Enter Currency Code To Convert To: ");
-        clsCurrency toCurrency = clsCurrency::FindCurrencyByCode(MyInputLibrary::ReadWord(""));
+        clsCurrency toCurrency = clsCurrency::FindByCode(MyInputLibrary::ReadWord(""));
         while(toCurrency.IsEmpty())
         {
             _Print("\n");
             _Print("No currency found with this code\n");
             _Print("Enter Currency Code To Convert To: ");
-            toCurrency = clsCurrency::FindCurrencyByCode(MyInputLibrary::ReadWord(""));
+            toCurrency = clsCurrency::FindByCode(MyInputLibrary::ReadWord(""));
         }
 
         _Print("\n");

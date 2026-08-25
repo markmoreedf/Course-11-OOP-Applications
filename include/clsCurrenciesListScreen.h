@@ -8,6 +8,8 @@ public:
 
     static void ShowCurrenciesListScreen()
     {
+        system("cls");
+
         vector <clsCurrency> currencies = clsCurrency::GetCurrenciesList();
         vector<vector<string>> data;
 
