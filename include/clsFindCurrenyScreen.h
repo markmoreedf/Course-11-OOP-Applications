@@ -4,7 +4,7 @@
 #include "MyInputLibrary.h"
 class clsFindCurrenyScreen : protected clsScreen
 {
-private:
+protected:
 
     static void _PrintCurrencyRecord(clsCurrency currency)
     {
@@ -17,22 +17,20 @@ private:
         _Print("===================================\n");
     }
 
-    static void _PerformFindCurrency(string choice)
+    static clsCurrency _PerformFindCurrency(string choice)
     {
         clsCurrency currency = clsCurrency::FindCurrencyByCountry(choice);
         if (!currency.IsEmpty())
-        { return _PrintCurrencyRecord(currency); }
+        { return currency; }
 
         currency = clsCurrency::FindCurrencyByName(choice);
         if (!currency.IsEmpty())
-        { return _PrintCurrencyRecord(currency); }
+        { return currency; }
 
-        currency = clsCurrency::FindCurrencyByCode(choice);
-        if (!currency.IsEmpty())
-        { return _PrintCurrencyRecord(currency); }
+        currency = clsCurrency::FindByCode(choice);
+
+        return currency; 
         
-        _Print("No currency found with the given input: " + choice + "\n");
-
     }
 
 public:
@@ -53,7 +51,15 @@ public:
             if(choice == "0")
                 return;
             
-            _PerformFindCurrency(choice);
+            if(!_PerformFindCurrency(choice).IsEmpty())
+            {
+                _PrintCurrencyRecord(_PerformFindCurrency(choice));
+            }
+            else
+            {
+                _Print("No currency found with the given input: " + choice + "\n");
+            }
+
             _PauseScreen();
         }       
 
