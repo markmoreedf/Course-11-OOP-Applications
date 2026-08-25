@@ -3,6 +3,7 @@
 #include "clsCurrenciesListScreen.h"
 #include "clsFindCurrenyScreen.h"
 #include "clsConvertCurrency.h"
+#include "clsUpdateRateScreen.h"
 
 class clsCurrencyMenuScreen : protected clsScreen
 {
@@ -16,44 +17,21 @@ private:
         eConvertCurrency = 4,
         eMainMenue = 5
     };
-    static void _ShowCurrencyRates()
-    {
-        system("cls");
-        clsCurrenciesListScreen::ShowCurrenciesListScreen();
-    }
-    static void _FindCurrency()
-    {
-        system("cls");
-        clsFindCurrenyScreen::ShowFindCurrencyScreen();        
-    }
-    static void _UpdateRate()
-    {
-        system("cls");
-        _PrintHeader("Update Currency Rate Screen", 15);
-        _Print("\n\n");
-        _Print("This feature is under development. Please check back later.");
-        _PauseScreen();
-    }
-    static void _ConvertCurrency()
-    {
-        system("cls");
-        clsConvertCurrency::ShowConvertCurrencyScreen();
-    }
 
     static void _PerformCurrencyMenueOption(enCurrencyMenueOption choice)
     {
         switch (choice) {
             case eShowAllCurrencyRates:
-                _ShowCurrencyRates();
+                clsCurrenciesListScreen::ShowCurrenciesListScreen();
                 break;
             case eFindCurrency:
-                _FindCurrency();
+                clsFindCurrenyScreen::ShowFindCurrencyScreen();
                 break;
             case eUpdateRate:
-                _UpdateRate();
+                clsUpdateRateScreen::ShowUpdateRateScreen();
                 break;
             case eConvertCurrency:
-                _ConvertCurrency();
+                clsConvertCurrency::ShowConvertCurrencyScreen();
                 break;
             case eMainMenue:
                 return;

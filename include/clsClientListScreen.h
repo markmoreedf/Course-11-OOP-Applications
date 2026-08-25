@@ -9,6 +9,8 @@ class clsClientListScreen : protected clsScreen
 public:
         static void ShowClientsListScreen()
         {
+            system("cls");
+
             vector <clsBankClient> clients = clsBankClient::GetClientsList();
             vector<vector<string>> data;
             _PrintHeader("Clients List. ["+ to_string(clients.size()) + "] found", 20);

@@ -20,16 +20,19 @@ protected:
         {
             std::cout << " ";
         }
-        std::cout << spaces     << "| === " + title + " === |\n";
-        std::cout << spaces;    clsTable::PrintDividerLine(title.length() + 12, shiftRight);
+
+        std::string currenctDate = clsDate::DateToString(clsDate::GetCurrentSystemDate());
+
+        std::cout << spaces;
+        std::cout << "| === " + title + " === |" << "\tCurrent User: " << CurrentUser.UserName << " | Date: " << currenctDate << endl;
+        std::cout << spaces; clsTable::PrintDividerLine(title.length() + 12, shiftRight);
         std::cout << endl << spaces;
+
         for (short i = 0; i < shiftRight; i++)
         {
             std::cout << " ";
         } 
-        std:: cout << "Current User: " << CurrentUser.UserName << " | Date: " << clsDate::DateToString(clsDate::GetCurrentSystemDate()) /* << " | Time: " << clsTime::GetSystemTime()*/;
         std::cout << "\n\n";
-
 
     }
     static void _PauseScreen(std::string message = "Press Enter to continue...")

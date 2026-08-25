@@ -22,6 +22,7 @@ private:
     public:
     static void ShowFindClientScreen()
     {
+        system("cls");
         _PrintHeader("Find Client Screen");
         _Print(""); std::string AccountNumber = MyInputLibrary::ReadLine("Enter Account Number: ");
         clsBankClient client = clsBankClient::FindClient(AccountNumber);
