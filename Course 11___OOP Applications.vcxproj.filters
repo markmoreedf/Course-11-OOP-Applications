@@ -138,6 +138,9 @@
     <ClInclude Include="include\clsConvertCurrency.h">
       <Filter>Header Files\Screens\Currency Screens</Filter>
     </ClInclude>
+    <ClInclude Include="include\clsUpdateRateScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Course 11___OOP Applications.cpp">

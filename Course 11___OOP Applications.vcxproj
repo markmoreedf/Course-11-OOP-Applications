@@ -157,6 +157,7 @@
     <ClInclude Include="include\clsTransactionScreen.h" />
     <ClInclude Include="include\clsTransferScreen.h" />
     <ClInclude Include="include\clsUpdateClientScreen.h" />
+    <ClInclude Include="include\clsUpdateRateScreen.h" />
     <ClInclude Include="include\clsUpdateUserScreen.h" />
     <ClInclude Include="include\clsUser.h" />
     <ClInclude Include="include\clsUserListScreen.h" />
