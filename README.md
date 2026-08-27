@@ -29,12 +29,12 @@ The goal of this project is to manage bank clients and users through a console i
    * **Delete User**
 * **Login Register:** Logging every login attempt to a file. 📝
 
-### ⏳ Coming Soon (Roadmap)
 * **Currency Exchange:** A specialized system for handling multiple currencies. 🌍
 
 ---
 
 ## 💻 Technical Skills Applied
+* **OOP:** Building software using Object-Oriented Programming. 📂
 * **File Streams (`fstream`):** Reading and writing data to `.txt` files. 📂
 * **String Manipulation:** Using a custom `clsString` library for splitting and joining data. ✂️
 * **Encapsulation:** Using private members and public `properties` for data safety. 🛡️
@@ -47,10 +47,14 @@ The goal of this project is to manage bank clients and users through a console i
 * `clsPerson.h`     — Base class for shared personal attributes.
 * `clsBankClient.h` — Main logic for bank clients & file interactions.
 * `clsUser.h`       — User class for system administrators.
+* `clsCurrency.h`   — Currency class for different currency data, rates against USD, and exchange.
 
 ### 💾 Data Storage
 * `Clients.txt`     — Text-based database for bank clients.
 * `Users.txt`       — Text-based database for system users.
+* `Currencies.txt`  — Text-based database for currencies.
+* `LoginRegister.txt` — Text-based database for user login/registration.
+* `TransferRegister.txt` — Text-based database for money transfers between clients.
 
 ### 🖥️ User Interface
 * `clsScreen.h`     — The base class for all screen management.
